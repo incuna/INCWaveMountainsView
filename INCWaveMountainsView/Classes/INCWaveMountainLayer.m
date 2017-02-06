@@ -8,6 +8,14 @@
 
 #import "INCWaveMountainLayer.h"
 
+@interface INCWaveMountainLayer ()
+{
+    NSTimer *unblockLeftMountainTimer;
+
+}
+
+@end
+
 @implementation INCWaveMountainLayer
 
 
@@ -16,6 +24,7 @@
     self = [super init];
     if (self) {
         self.mountainPercent = -1;
+        self.unblockMontainsForMissingPercents = YES;
     }
     return self;
 }
@@ -57,7 +66,7 @@
 
 #pragma mark - Public methods
 
--(void)removeMountainPosition
+-(void)resetMountainPosition
 {
     self.mountainPercent = -1;
     self.mountainPointId = NULL;
@@ -101,7 +110,9 @@
     [self.maskMountain removeFromSuperlayer];
     _maskMountain = NULL;
     
-    [self removeMountainPosition];
+    [self resetMountainPosition];
+    
+    [self _invalidateTimer];
 }
 
 - (BOOL)belongsToPointId:(NSInteger)idPoint
@@ -109,5 +120,37 @@
     return self.mountainPointId && self.mountainPointId.integerValue == idPoint;
 }
 
+#pragma mark - Timer methods
 
+- (void)timerFireMethod:(NSTimer *)timer
+{
+    [self resetMountainPosition];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(layerResetByTimeOut:)]) {
+        [self.delegate layerResetByTimeOut:self];
+    }
+    
+    [timer invalidate];
+}
+
+- (void)_invalidateTimer
+{
+    [unblockLeftMountainTimer invalidate];
+}
+
+static NSTimeInterval unblockTimeInterval = 5;
+-(void)setUpUnblockTimer
+{
+    if (!self.unblockMontainsForMissingPercents) {
+        return;
+    }
+    
+    if(unblockLeftMountainTimer)
+    {
+        [unblockLeftMountainTimer invalidate];
+        unblockLeftMountainTimer = NULL;
+    }
+    
+    unblockLeftMountainTimer = [NSTimer scheduledTimerWithTimeInterval:unblockTimeInterval target:self selector:@selector(timerFireMethod:) userInfo:NULL repeats:NO];
+}
 @end

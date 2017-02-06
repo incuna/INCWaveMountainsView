@@ -9,6 +9,16 @@
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
 
+@class INCWaveMountainLayer;
+
+@protocol INCWavwMountainLayerDelegate <NSObject>
+
+@optional
+-(void)layerResetByTimeOut:(nonnull INCWaveMountainLayer *)layer;
+
+@end
+
+
 @interface INCWaveMountainLayer : CAShapeLayer
 
 @property(nonatomic,strong,nonnull)CAShapeLayer *shapeLayerMountain;
@@ -17,11 +27,13 @@
 @property(nonatomic,strong,nonnull)CAShapeLayer *maskMountain;
 @property(nonatomic,strong,nonnull)CAGradientLayer *gradientMountain;
 
+@property(nonatomic,assign)BOOL unblockMontainsForMissingPercents;
+@property(nonatomic,weak,nullable)id<INCWavwMountainLayerDelegate> delegate;
 
-- (void)removeMountainPosition;
+- (void)resetMountainPosition;
 - (void)animatePath:(nonnull UIBezierPath *)path;
 - (void)resetWave;
 
 - (BOOL)belongsToPointId:(NSInteger)idPoint;
-
+- (void)setUpUnblockTimer;
 @end

@@ -15,12 +15,8 @@ typedef NS_ENUM(NSInteger, INCMountainPosition){
     INCMountainPositionRight
 };
 
-@interface INCWaveMountainsView ()
-{
-    NSTimer *unblockLeftMountainTimer;
-    NSTimer *unblockCentralMountainTimer;
-    NSTimer *unblockRightMountainTimer;
-}
+@interface INCWaveMountainsView ()<INCWavwMountainLayerDelegate>
+
 
 //Left mountain
 @property(nonatomic,strong)INCWaveMountainLayer *leftMountain;
@@ -76,12 +72,24 @@ static NSInteger MAX_COLUMNS = 3;
     return self;
 }
 
+-(void)setUnblockMontainsForMissingPercents:(BOOL)unblockMontainsForMissingPercents
+{
+    if (_unblockMontainsForMissingPercents != unblockMontainsForMissingPercents) {
+        _unblockMontainsForMissingPercents = unblockMontainsForMissingPercents;
+        
+        _leftMountain.unblockMontainsForMissingPercents = _unblockMontainsForMissingPercents;
+        _centerMountain.unblockMontainsForMissingPercents = _unblockMontainsForMissingPercents;
+        _rightMountain.unblockMontainsForMissingPercents = _unblockMontainsForMissingPercents;
+    }
+}
+
 -(INCWaveMountainLayer *)leftMountain
 {
     if (!_leftMountain) {
         _leftMountain = [[INCWaveMountainLayer alloc]init];
         _leftMountain.fillColor = [UIColor clearColor].CGColor;
-
+        _leftMountain.delegate = self;
+        _leftMountain.unblockMontainsForMissingPercents = self.unblockMontainsForMissingPercents;
         [self.layer addSublayer:_leftMountain];
     }
     return _leftMountain;
@@ -92,7 +100,8 @@ static NSInteger MAX_COLUMNS = 3;
     if (!_centerMountain) {
         _centerMountain = [[INCWaveMountainLayer alloc]init];
         _centerMountain.fillColor = [UIColor clearColor].CGColor;
-        
+        _centerMountain.delegate = self;
+        _centerMountain.unblockMontainsForMissingPercents = self.unblockMontainsForMissingPercents;
         [self.layer addSublayer:_centerMountain];
     }
     return _centerMountain;
@@ -103,7 +112,8 @@ static NSInteger MAX_COLUMNS = 3;
     if (!_rightMountain) {
         _rightMountain = [[INCWaveMountainLayer alloc]init];
         _rightMountain.fillColor = [UIColor clearColor].CGColor;
-        
+        _rightMountain.delegate = self;
+        _rightMountain.unblockMontainsForMissingPercents = self.unblockMontainsForMissingPercents;
         [self.layer addSublayer:_rightMountain];
     }
     return _rightMountain;
@@ -149,7 +159,7 @@ static NSInteger MAX_COLUMNS = 3;
     return _percentReachFull;
 }
 
--(void)_removeThePointWithIdPoint:(NSInteger)idPoint inMountain:(INCMountainPosition)mountain
+-(void)_removeThePointWithIdPoint:(NSInteger)idPoint inMountainLayer:(INCWaveMountainLayer *)mountainLayer inMountainPosition:(INCMountainPosition)mountainPosition
 {
     //In order to reset the values we need to reset the values to 0 and then remove the point.
     
@@ -158,9 +168,9 @@ static NSInteger MAX_COLUMNS = 3;
     
     dispatch_group_enter(group);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        UIBezierPath *path = [self _pathWithIdPoint:idPoint percent:0 inMountain:mountain];
+        UIBezierPath *path = [self _pathWithIdPoint:idPoint percent:0 inMountainLayer:mountainLayer inMountainPosition:mountainPosition];
         if (path) {
-            [self _animatePath:path inMountain:mountain];
+            [mountainLayer animatePath:path];
         }
         dispatch_group_leave(group);
     });
@@ -168,31 +178,12 @@ static NSInteger MAX_COLUMNS = 3;
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
-            [weakSelf _removeMountainPosition:mountain];
+            [mountainLayer resetMountainPosition];
+            if (mountainLayer.mountainPointId) {
+                [weakSelf.percentReachFull setObject:@YES forKey:mountainLayer.mountainPointId];
+            }
         });
     });
-}
-
--(void)_removeMountainPosition:(INCMountainPosition)mountainPosition
-{
-    INCWaveMountainLayer *mountain;
-    switch (mountainPosition) {
-        case INCMountainPositionLeft:
-            mountain = self.leftMountain;
-            break;
-        
-        case INCMountainPositionCenter:
-            mountain = self.centerMountain;
-            break;
-            
-        case INCMountainPositionRight:
-            mountain = self.rightMountain;
-            break;
-    }
-    if (mountain.mountainPointId) {
-        [self.percentReachFull setObject:@YES forKey:mountain.mountainPointId];
-    }
-    [mountain removeMountainPosition];
 }
 
 #pragma mark - Drawing functions
@@ -220,28 +211,24 @@ static float distanceBeetweenBackgroundLines = 10;
 }
 
 //For now this method remains in the view
-- (UIBezierPath *)_pathWithIdPoint:(NSInteger)idPoint percent:(float)percent inMountain:(INCMountainPosition)mountain
+- (UIBezierPath *)_pathWithIdPoint:(NSInteger)idPoint percent:(float)percent inMountainLayer:(INCWaveMountainLayer *)mountainLayer inMountainPosition:(INCMountainPosition)mountainPosition
 {
     int index = -1;
-    INCWaveMountainLayer *mountainLayer;
 
     CAShapeLayer *layer;
-    switch (mountain) {
+    switch (mountainPosition) {
         case INCMountainPositionLeft:
             
-            mountainLayer = self.leftMountain;
             index = 0;
             break;
             
         case INCMountainPositionCenter:
             
-            mountainLayer = self.centerMountain;
             index = 1;
             break;
             
         case INCMountainPositionRight:
             
-            mountainLayer = self.rightMountain;
             index = 2;
             break;
     }
@@ -269,7 +256,7 @@ static float distanceBeetweenBackgroundLines = 10;
     CGPoint controlPoint1Curve2 = CGPointZero;
     CGPoint controlPoint2Curve2 = CGPointZero;
     
-    switch (mountain) {
+    switch (mountainPosition) {
         case INCMountainPositionLeft:
             controlPoint1Curve1 = CGPointMake((finalPointCurve1.x + 0)/2, (height + finalPointCurve1.y)/2);//The control point 1 is x and y are the equidistance point between the origin point and the final point
             controlPoint2Curve1 = CGPointMake(controlPoint1Curve1.x, finalPointCurve1.y);
@@ -306,101 +293,29 @@ static float distanceBeetweenBackgroundLines = 10;
     return path;
 }
 
-- (void)_animatePath:(UIBezierPath *)path inMountain:(INCMountainPosition)mountainPosition
-{
-    switch (mountainPosition) {
-        case INCMountainPositionLeft:
-            
-            [self.leftMountain animatePath:path];
-            break;
-            
-        case INCMountainPositionCenter:
-            
-            [self.centerMountain animatePath:path];
-            break;
-            
-        case INCMountainPositionRight:
-            
-            [self.rightMountain animatePath:path];
-            break;
-    }
-}
 
-
--(void)_drawPercent:(float)percent forIdPoint:(NSInteger)idPoint inMountain:(INCMountainPosition)mountain{
+-(void)_drawPercent:(float)percent forIdPoint:(NSInteger)idPoint inMountainLayer:(INCWaveMountainLayer *)mountainLayer inMountainPosition:(INCMountainPosition)mountainPosition{
     
-    UIBezierPath *path = [self _pathWithIdPoint:idPoint percent:percent inMountain:mountain];
+    UIBezierPath *path = [self _pathWithIdPoint:idPoint percent:percent inMountainLayer:mountainLayer inMountainPosition:mountainPosition];
     if (!path) {
         return;
     }
-    [self _animatePath:path inMountain:mountain];
+    [mountainLayer animatePath:path];
     
     if (percent == 1) {
-        [self _removeThePointWithIdPoint:idPoint inMountain:mountain];
+        [self _removeThePointWithIdPoint:idPoint inMountainLayer:mountainLayer inMountainPosition:mountainPosition];
     }
-}
-
-#pragma mark - unblock timers
-
-- (void)timerFireMethod:(NSTimer *)timer
-{
-    if (timer == unblockLeftMountainTimer) {
-        [self _removeMountainPosition:INCMountainPositionLeft];
-    }
-    
-    if (timer == unblockCentralMountainTimer) {
-        [self _removeMountainPosition:INCMountainPositionCenter];
-    }
-    
-    if (timer == unblockRightMountainTimer) {
-        [self _removeMountainPosition:INCMountainPositionRight];
-    }
-    
-    [timer invalidate];
-}
-
-static NSTimeInterval unblockTimeInterval = 5;
--(void)_setUpUnblockTimerForTimer:(NSTimer *__strong *)timer
-{
-    if (!timer || !self.unblockMontainsForMissingPercents) {
-        return;
-    }
-    
-    if(*timer)
-    {
-        [*timer invalidate];
-        *timer = NULL;
-    }
-    
-    *timer = [NSTimer scheduledTimerWithTimeInterval:unblockTimeInterval target:self selector:@selector(timerFireMethod:) userInfo:NULL repeats:NO];
 }
 
 #pragma mark - Draw mountains
 
--(void)_drawForLeftMountainPercent:(float)percent forIdPoint:(NSInteger)idPoint
+-(void)_drawMountainForPercent:(float)percent forIdPoint:(NSInteger)idPoint inMountainLayer:(INCWaveMountainLayer *)mountainLayer inMountainPosition:(INCMountainPosition)mountainPosition
 {
-    if (percent > self.leftMountain.mountainPercent) {
-        [self _setUpUnblockTimerForTimer:&unblockLeftMountainTimer];
-        [self _drawPercent:percent forIdPoint:idPoint inMountain:INCMountainPositionLeft];
+    if (percent > mountainLayer.mountainPercent) {
+        [mountainLayer setUpUnblockTimer];
+        [self _drawPercent:percent forIdPoint:idPoint inMountainLayer:mountainLayer inMountainPosition:mountainPosition];
     }
 }
-
--(void)_drawForCenterMountainPercent:(float)percent forIdPoint:(NSInteger)idPoint
-{
-    if (percent > self.centerMountain.mountainPercent) {
-        [self _setUpUnblockTimerForTimer:&unblockCentralMountainTimer];
-        [self _drawPercent:percent forIdPoint:idPoint inMountain:INCMountainPositionCenter];
-    }
-}
-
--(void)_drawForRightMountainPercent:(float)percent forIdPoint:(NSInteger)idPoint
-{
-    if (percent > self.rightMountain.mountainPercent) {
-        [self _setUpUnblockTimerForTimer:&unblockRightMountainTimer];
-        [self _drawPercent:percent forIdPoint:idPoint inMountain:INCMountainPositionRight];
-    }
-}
-
 
 #pragma mark - Public methods
 
@@ -410,14 +325,6 @@ static NSTimeInterval unblockTimeInterval = 5;
     [self.centerMountain resetWave];
     [self.rightMountain resetWave];
     
-    [unblockLeftMountainTimer invalidate];
-    [unblockCentralMountainTimer invalidate];
-    [unblockRightMountainTimer invalidate];
-    
-    [self _removeMountainPosition:INCMountainPositionLeft];
-    [self _removeMountainPosition:INCMountainPositionCenter];
-    [self _removeMountainPosition:INCMountainPositionRight];
-    
     [self.leftMountain removeFromSuperlayer];
     self.leftMountain = NULL;
     
@@ -426,6 +333,8 @@ static NSTimeInterval unblockTimeInterval = 5;
     
     [self.rightMountain removeFromSuperlayer];
     self.rightMountain = NULL;
+    
+    self.percentReachFull = [@{} mutableCopy];
 }
 
 -(void)drawPercent:(float)percent forIdPoint:(NSInteger)idPoint
@@ -436,33 +345,33 @@ static NSTimeInterval unblockTimeInterval = 5;
     }
     
     if ([self.leftMountain belongsToPointId:idPoint]) {
-        [self _drawForLeftMountainPercent:percent forIdPoint:idPoint];
+        [self _drawMountainForPercent:percent forIdPoint:idPoint inMountainLayer:self.leftMountain inMountainPosition:INCMountainPositionLeft];
         return;
     }
     
     if ([self.centerMountain belongsToPointId:idPoint]) {
-        [self _drawForCenterMountainPercent:percent forIdPoint:idPoint];
+        [self _drawMountainForPercent:percent forIdPoint:idPoint inMountainLayer:self.centerMountain inMountainPosition:INCMountainPositionCenter];
         return;
     }
     
     if ([self.rightMountain belongsToPointId:idPoint]) {
-        [self _drawForRightMountainPercent:percent forIdPoint:idPoint];
+        [self _drawMountainForPercent:percent forIdPoint:idPoint inMountainLayer:self.rightMountain inMountainPosition:INCMountainPositionRight];
         return;
     }
     
     
     if (!self.leftMountain.mountainPointId) {
-        [self _drawForLeftMountainPercent:percent forIdPoint:idPoint];
+        [self _drawMountainForPercent:percent forIdPoint:idPoint inMountainLayer:self.leftMountain inMountainPosition:INCMountainPositionLeft];
         return;
     }
         
     if (!self.centerMountain.mountainPointId) {
-        [self _drawForCenterMountainPercent:percent forIdPoint:idPoint];
+        [self _drawMountainForPercent:percent forIdPoint:idPoint inMountainLayer:self.centerMountain inMountainPosition:INCMountainPositionCenter];
         return;
     }
     
     if (!self.rightMountain.mountainPointId) {
-        [self _drawForRightMountainPercent:percent forIdPoint:idPoint];
+        [self _drawMountainForPercent:percent forIdPoint:idPoint inMountainLayer:self.rightMountain inMountainPosition:INCMountainPositionRight];
         return;
     }
 }
@@ -477,6 +386,15 @@ static NSTimeInterval unblockTimeInterval = 5;
     [self _drawBackgroundLinesInRect:rect withContext:context];
 }
 
+#pragma mark - INCWavwMountainLayerDelegate
+
+
+-(void)layerResetByTimeOut:(nonnull INCWaveMountainLayer *)layer
+{
+    if (layer.mountainPointId) {
+        [self.percentReachFull setObject:@YES forKey:layer.mountainPointId];
+    }
+}
 
 
 @end
