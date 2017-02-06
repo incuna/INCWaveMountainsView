@@ -7,6 +7,7 @@
 //
 
 #import "INCWaveMountainsView.h"
+#import "INCWaveMountainLayer.h"
 
 typedef NS_ENUM(NSInteger, INCMountainPosition){
     INCMountainPositionLeft,
@@ -22,22 +23,14 @@ typedef NS_ENUM(NSInteger, INCMountainPosition){
 }
 
 //Left mountain
-@property(nonatomic,strong)CAShapeLayer *shapeLayerLeftMountain;
-@property(nonatomic,assign)float leftMountainPercent;
-@property(atomic,strong)NSNumber *leftMountainPointId;
-@property(nonatomic,strong)CAShapeLayer *maskLeftMountain;
+@property(nonatomic,strong)INCWaveMountainLayer *leftMountain;
+
 
 //Central mountain
-@property(nonatomic,strong)CAShapeLayer *shapeLayerCenterMountain;
-@property(nonatomic,assign)float centerMountainPercent;
-@property(atomic,strong)NSNumber *centerMountainPointId;
-@property(nonatomic,strong)CAShapeLayer *maskCenterMountain;
+@property(nonatomic,strong)INCWaveMountainLayer *centerMountain;
 
 //Right mountain
-@property(nonatomic,strong)CAShapeLayer *shapeLayerRightMountain;
-@property(nonatomic,assign)float rightMountainPercent;
-@property(atomic,strong)NSNumber *rightMountainPointId;
-@property(nonatomic,strong)CAShapeLayer *maskRightMountain;
+@property(nonatomic,strong)INCWaveMountainLayer *rightMountain;
 
 
 @property(nonatomic,strong)NSMutableDictionary *percentReachFull;
@@ -54,10 +47,6 @@ static NSInteger MAX_COLUMNS = 3;
 
 -(void)commonInit{
     self.unblockMontainsForMissingPercents = YES;
-    
-    self.leftMountainPercent = -1;
-    self.centerMountainPercent = -1;
-    self.rightMountainPercent = -1;
 }
 
 -(instancetype)init
@@ -87,110 +76,70 @@ static NSInteger MAX_COLUMNS = 3;
     return self;
 }
 
+-(INCWaveMountainLayer *)leftMountain
+{
+    if (!_leftMountain) {
+        _leftMountain = [[INCWaveMountainLayer alloc]init];
+        _leftMountain.fillColor = [UIColor clearColor].CGColor;
+
+        [self.layer addSublayer:_leftMountain];
+    }
+    return _leftMountain;
+}
+
+-(INCWaveMountainLayer *)centerMountain
+{
+    if (!_centerMountain) {
+        _centerMountain = [[INCWaveMountainLayer alloc]init];
+        _centerMountain.fillColor = [UIColor clearColor].CGColor;
+        
+        [self.layer addSublayer:_centerMountain];
+    }
+    return _centerMountain;
+}
+
+-(INCWaveMountainLayer *)rightMountain
+{
+    if (!_rightMountain) {
+        _rightMountain = [[INCWaveMountainLayer alloc]init];
+        _rightMountain.fillColor = [UIColor clearColor].CGColor;
+        
+        [self.layer addSublayer:_rightMountain];
+    }
+    return _rightMountain;
+}
+
+
 -(CAGradientLayer *)gradientLeftMountain
 {
-    if (!_gradientLeftMountain) {
-        _gradientLeftMountain = [CAGradientLayer layer];
-        
-        _gradientLeftMountain.startPoint = CGPointMake(0, 0);
-        _gradientLeftMountain.endPoint = CGPointMake(1, 0);
-        NSArray *colors = @[(id)[UIColor colorWithRed:48.0/255.0 green:35.0/255.0 blue:174.0/255.0 alpha:0.4].CGColor, (id)[UIColor colorWithRed:180.0/255.0 green:236.0/255.0 blue:81.0/255.0 alpha:0.4].CGColor];
-        _gradientLeftMountain.colors = colors;
-    }
-    return _gradientLeftMountain;
+    return self.leftMountain.gradientMountain;
+}
+
+-(void)setGradientLeftMountain:(CAGradientLayer *)gradientLeftMountain
+{
+    [self.leftMountain setGradientMountain:gradientLeftMountain];
 }
 
 -(CAGradientLayer *)gradientCenterMountain
 {
-    if (!_gradientCenterMountain) {
-        _gradientCenterMountain = [CAGradientLayer layer];
-        
-        _gradientCenterMountain.startPoint = CGPointMake(0, 0);
-        _gradientCenterMountain.endPoint = CGPointMake(1, 0);
-        NSArray *colors = @[(id)[UIColor colorWithRed:48.0/255.0 green:35.0/255.0 blue:174.0/255.0 alpha:0.4].CGColor, (id)[UIColor colorWithRed:180.0/255.0 green:236.0/255.0 blue:81.0/255.0 alpha:0.4].CGColor];
-        _gradientCenterMountain.colors = colors;
-    }
-    return _gradientCenterMountain;
+    return self.centerMountain.gradientMountain;
+}
+
+-(void)setGradientCenterMountain:(CAGradientLayer *)gradientCenterMountain
+{
+    [self.centerMountain setGradientMountain:gradientCenterMountain];
 }
 
 -(CAGradientLayer *)gradientRightMountain
 {
-    if (!_gradientRightMountain) {
-        _gradientRightMountain = [CAGradientLayer layer];
-        
-        _gradientRightMountain.startPoint = CGPointMake(0, 0);
-        _gradientRightMountain.endPoint = CGPointMake(1, 0);
-        NSArray *colors = @[(id)[UIColor colorWithRed:48.0/255.0 green:35.0/255.0 blue:174.0/255.0 alpha:0.4].CGColor, (id)[UIColor colorWithRed:180.0/255.0 green:236.0/255.0 blue:81.0/255.0 alpha:0.4].CGColor];
-        _gradientRightMountain.colors = colors;
-    }
-    return _gradientRightMountain;
+    return self.rightMountain.gradientMountain;
 }
 
--(CAShapeLayer *)maskLeftMountain
+-(void)setGradientRightMountain:(CAGradientLayer *)gradientRightMountain
 {
-    if (!_maskLeftMountain) {
-        _maskLeftMountain = [CAShapeLayer layer];
-        _maskLeftMountain.fillColor = [UIColor whiteColor].CGColor;
-    }
-    return _maskLeftMountain;
+    [self.rightMountain setGradientMountain:gradientRightMountain];
 }
 
--(CAShapeLayer *)maskCenterMountain
-{
-    if (!_maskCenterMountain) {
-        _maskCenterMountain = [CAShapeLayer layer];
-        _maskCenterMountain.fillColor = [UIColor whiteColor].CGColor;
-    }
-    return _maskCenterMountain;
-}
-
--(CAShapeLayer *)maskRightMountain
-{
-    if (!_maskRightMountain) {
-        _maskRightMountain = [CAShapeLayer layer];
-        _maskRightMountain.fillColor = [UIColor whiteColor].CGColor;
-    }
-    return _maskRightMountain;
-}
-
--(CAShapeLayer *)shapeLayerLeftMountain
-{
-    if (!_shapeLayerLeftMountain) {
-        _shapeLayerLeftMountain = [[CAShapeLayer alloc]init];
-#pragma mark pending to create external colours for change the mountains
-        [_shapeLayerLeftMountain setFillColor:[UIColor clearColor].CGColor];
-        [_shapeLayerLeftMountain addSublayer:self.gradientLeftMountain];
-
-        [self.layer addSublayer:_shapeLayerLeftMountain];
-    }
-    return _shapeLayerLeftMountain;
-}
-
--(CAShapeLayer *)shapeLayerCenterMountain
-{
-    if (!_shapeLayerCenterMountain) {
-        _shapeLayerCenterMountain = [[CAShapeLayer alloc]init];
-        
-        [_shapeLayerCenterMountain setFillColor:[UIColor clearColor].CGColor];
-        [_shapeLayerCenterMountain addSublayer:self.gradientCenterMountain];
-
-        [self.layer addSublayer:_shapeLayerCenterMountain];
-    }
-    return _shapeLayerCenterMountain;
-}
-
--(CAShapeLayer *)shapeLayerRightMountain
-{
-    if (!_shapeLayerRightMountain) {
-        _shapeLayerRightMountain = [[CAShapeLayer alloc]init];
-        
-        [_shapeLayerRightMountain setFillColor:[UIColor clearColor].CGColor];
-        [_shapeLayerRightMountain addSublayer:self.gradientRightMountain];
-
-        [self.layer addSublayer:_shapeLayerRightMountain];
-    }
-    return _shapeLayerRightMountain;
-}
 
 -(NSMutableDictionary *)percentReachFull
 {
@@ -226,32 +175,24 @@ static NSInteger MAX_COLUMNS = 3;
 
 -(void)_removeMountainPosition:(INCMountainPosition)mountainPosition
 {
+    INCWaveMountainLayer *mountain;
     switch (mountainPosition) {
         case INCMountainPositionLeft:
-            if (self.leftMountainPointId) {
-                [self.percentReachFull setObject:@YES forKey:self.leftMountainPointId];
-            }
-            self.leftMountainPercent = -1;
-            self.leftMountainPointId = NULL;
+            mountain = self.leftMountain;
             break;
         
         case INCMountainPositionCenter:
-            if (self.centerMountainPointId) {
-                [self.percentReachFull setObject:@YES forKey:@(self.centerMountainPercent)];
-            }
-            self.centerMountainPercent = -1;
-            self.centerMountainPointId = NULL;
+            mountain = self.centerMountain;
             break;
             
         case INCMountainPositionRight:
-            if (self.rightMountainPointId) {
-                [self.percentReachFull setObject:@YES forKey:@(self.rightMountainPercent)];
-            }
-            self.rightMountainPercent = -1;
-            self.rightMountainPointId = NULL;
-            
+            mountain = self.rightMountain;
             break;
     }
+    if (mountain.mountainPointId) {
+        [self.percentReachFull setObject:@YES forKey:mountain.mountainPointId];
+    }
+    [mountain removeMountainPosition];
 }
 
 #pragma mark - Drawing functions
@@ -278,39 +219,37 @@ static float distanceBeetweenBackgroundLines = 10;
 
 }
 
+//For now this method remains in the view
 - (UIBezierPath *)_pathWithIdPoint:(NSInteger)idPoint percent:(float)percent inMountain:(INCMountainPosition)mountain
 {
     int index = -1;
-    
+    INCWaveMountainLayer *mountainLayer;
+
     CAShapeLayer *layer;
     switch (mountain) {
         case INCMountainPositionLeft:
             
-            layer = self.shapeLayerLeftMountain;
-            self.leftMountainPercent = percent;
-            self.leftMountainPointId = @(idPoint);
-            
+            mountainLayer = self.leftMountain;
             index = 0;
             break;
             
         case INCMountainPositionCenter:
             
-            layer = self.shapeLayerCenterMountain;
-            self.centerMountainPercent = percent;
-            self.centerMountainPointId = @(idPoint);
-            
+            mountainLayer = self.centerMountain;
             index = 1;
             break;
             
         case INCMountainPositionRight:
             
-            layer = self.shapeLayerRightMountain;
-            self.rightMountainPercent = percent;
-            self.rightMountainPointId = @(idPoint);
+            mountainLayer = self.rightMountain;
             index = 2;
-            
             break;
     }
+    
+    layer = mountainLayer.shapeLayerMountain;
+    mountainLayer.mountainPercent = percent;
+    mountainLayer.mountainPointId = @(idPoint);
+    
 
     float height = self.bounds.size.height;
 
@@ -325,37 +264,39 @@ static float distanceBeetweenBackgroundLines = 10;
     CGPoint controlPoint1Curve1 = CGPointZero;
     CGPoint controlPoint2Curve1 = CGPointZero;
     
-    if (layer == self.shapeLayerLeftMountain) {
-        controlPoint1Curve1 = CGPointMake((finalPointCurve1.x + 0)/2, (height + finalPointCurve1.y)/2);//The control point 1 is x and y are the equidistance point between the origin point and the final point
-        controlPoint2Curve1 = CGPointMake(controlPoint1Curve1.x, finalPointCurve1.y);
-    }
-    if (layer == self.shapeLayerCenterMountain) {
-        controlPoint1Curve1 = CGPointMake(widthForAPoint/2, height);//The control point 1 is x and y are the equidistance point between the origin point and the final point
-        controlPoint2Curve1 = CGPointMake(finalPointCurve1.x - widthForAPoint/4, finalPointCurve1.y);
-    }
-    if (layer == self.shapeLayerRightMountain) {
-        controlPoint1Curve1 = CGPointMake(self.bounds.size.width/2, height);//The control point 1 is x and y are the equidistance point between the origin point and the final point
-        controlPoint2Curve1 = CGPointMake(finalPointCurve1.x - (self.bounds.size.width - finalPointCurve1.x) / 2, finalPointCurve1.y);
-    }
-    [path addCurveToPoint:finalPointCurve1 controlPoint1:controlPoint1Curve1 controlPoint2:controlPoint2Curve1];
-    
-    
     //Second curve
     CGPoint finalPointCurve2 = CGPointMake(self.bounds.size.width, height);
     CGPoint controlPoint1Curve2 = CGPointZero;
     CGPoint controlPoint2Curve2 = CGPointZero;
-    if (layer == self.shapeLayerLeftMountain) {
-        controlPoint1Curve2 = CGPointMake(finalPointCurve1.x + (finalPointCurve1.x - controlPoint2Curve1.x), finalPointCurve1.y);
-        controlPoint2Curve2 = CGPointMake(self.bounds.size.width/2,finalPointCurve2.y);
+    
+    switch (mountain) {
+        case INCMountainPositionLeft:
+            controlPoint1Curve1 = CGPointMake((finalPointCurve1.x + 0)/2, (height + finalPointCurve1.y)/2);//The control point 1 is x and y are the equidistance point between the origin point and the final point
+            controlPoint2Curve1 = CGPointMake(controlPoint1Curve1.x, finalPointCurve1.y);
+            
+            controlPoint1Curve2 = CGPointMake(finalPointCurve1.x + (finalPointCurve1.x - controlPoint2Curve1.x), finalPointCurve1.y);
+            controlPoint2Curve2 = CGPointMake(self.bounds.size.width/2,finalPointCurve2.y);
+            break;
+            
+        case INCMountainPositionCenter:
+            controlPoint1Curve1 = CGPointMake(widthForAPoint/2, height);//The control point 1 is x and y are the equidistance point between the origin point and the final point
+            controlPoint2Curve1 = CGPointMake(finalPointCurve1.x - widthForAPoint/4, finalPointCurve1.y);
+            
+            controlPoint1Curve2 = CGPointMake(finalPointCurve1.x + widthForAPoint/4, finalPointCurve1.y);
+            controlPoint2Curve2 = CGPointMake(self.bounds.size.width - widthForAPoint/2,finalPointCurve2.y);
+            break;
+            
+        case INCMountainPositionRight:
+        
+            controlPoint1Curve1 = CGPointMake(self.bounds.size.width/2, height);//The control point 1 is x and y are the equidistance point between the origin point and the final point
+            controlPoint2Curve1 = CGPointMake(finalPointCurve1.x - (self.bounds.size.width - finalPointCurve1.x) / 2, finalPointCurve1.y);
+            
+            controlPoint1Curve2 = CGPointMake(finalPointCurve1.x + (finalPointCurve1.x - controlPoint2Curve1.x), finalPointCurve1.y);//The control point 1 is x and y are the equidistance point between the origin point and the final point
+            controlPoint2Curve2 = CGPointMake(controlPoint1Curve2.x, (height + finalPointCurve1.y)/2);
+            break;
     }
-    if (layer == self.shapeLayerCenterMountain) {
-        controlPoint1Curve2 = CGPointMake(finalPointCurve1.x + widthForAPoint/4, finalPointCurve1.y);
-        controlPoint2Curve2 = CGPointMake(self.bounds.size.width - widthForAPoint/2,finalPointCurve2.y);
-    }
-    if (layer == self.shapeLayerRightMountain) {
-        controlPoint1Curve2 = CGPointMake(finalPointCurve1.x + (finalPointCurve1.x - controlPoint2Curve1.x), finalPointCurve1.y);//The control point 1 is x and y are the equidistance point between the origin point and the final point
-        controlPoint2Curve2 = CGPointMake(controlPoint1Curve2.x, (height + finalPointCurve1.y)/2);
-    }
+    [path addCurveToPoint:finalPointCurve1 controlPoint1:controlPoint1Curve1 controlPoint2:controlPoint2Curve1];
+    
     [path addCurveToPoint:finalPointCurve2 controlPoint1:controlPoint1Curve2 controlPoint2:controlPoint2Curve2];
     
     [path addLineToPoint:CGPointMake(0, height)];
@@ -367,56 +308,22 @@ static float distanceBeetweenBackgroundLines = 10;
 
 - (void)_animatePath:(UIBezierPath *)path inMountain:(INCMountainPosition)mountainPosition
 {
-    CAShapeLayer *maskLayer;
-    CAShapeLayer *layer;
     switch (mountainPosition) {
         case INCMountainPositionLeft:
             
-            layer = self.shapeLayerLeftMountain;
-            self.maskLeftMountain.path = path.CGPath;
-            self.gradientLeftMountain.frame = path.bounds;
-            
-            maskLayer = self.maskLeftMountain;
+            [self.leftMountain animatePath:path];
             break;
             
         case INCMountainPositionCenter:
             
-            layer = self.shapeLayerCenterMountain;
-            self.maskCenterMountain.path = path.CGPath;
-            self.gradientCenterMountain.frame = path.bounds;
-            
-            maskLayer = self.maskCenterMountain;
-            
+            [self.centerMountain animatePath:path];
             break;
             
         case INCMountainPositionRight:
             
-            layer = self.shapeLayerRightMountain;
-            self.maskRightMountain.path = path.CGPath;
-            self.gradientRightMountain.frame = path.bounds;
-            
-            maskLayer = self.maskRightMountain;
-            
+            [self.rightMountain animatePath:path];
             break;
     }
-    
-    layer.mask = maskLayer;
-    
-    CGPathRef oldPath = layer.path;
-    CGPathRef newPath = path.CGPath;
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-    [animation setFromValue:(__bridge id)oldPath];
-    [animation setToValue:(__bridge id)newPath];
-    [animation setDuration:0.1];
-    [animation setBeginTime:CACurrentMediaTime()];
-    [animation setFillMode:kCAFillModeBackwards];
-    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
-            
-    animation.removedOnCompletion = false; // don't remove after finishing
-
-    [maskLayer addAnimation:animation forKey:@"path"];
-    layer.path = newPath;
-    
 }
 
 
@@ -472,7 +379,7 @@ static NSTimeInterval unblockTimeInterval = 5;
 
 -(void)_drawForLeftMountainPercent:(float)percent forIdPoint:(NSInteger)idPoint
 {
-    if (percent > self.leftMountainPercent) {
+    if (percent > self.leftMountain.mountainPercent) {
         [self _setUpUnblockTimerForTimer:&unblockLeftMountainTimer];
         [self _drawPercent:percent forIdPoint:idPoint inMountain:INCMountainPositionLeft];
     }
@@ -480,7 +387,7 @@ static NSTimeInterval unblockTimeInterval = 5;
 
 -(void)_drawForCenterMountainPercent:(float)percent forIdPoint:(NSInteger)idPoint
 {
-    if (percent > self.centerMountainPercent) {
+    if (percent > self.centerMountain.mountainPercent) {
         [self _setUpUnblockTimerForTimer:&unblockCentralMountainTimer];
         [self _drawPercent:percent forIdPoint:idPoint inMountain:INCMountainPositionCenter];
     }
@@ -488,7 +395,7 @@ static NSTimeInterval unblockTimeInterval = 5;
 
 -(void)_drawForRightMountainPercent:(float)percent forIdPoint:(NSInteger)idPoint
 {
-    if (percent > self.rightMountainPercent) {
+    if (percent > self.rightMountain.mountainPercent) {
         [self _setUpUnblockTimerForTimer:&unblockRightMountainTimer];
         [self _drawPercent:percent forIdPoint:idPoint inMountain:INCMountainPositionRight];
     }
@@ -499,32 +406,9 @@ static NSTimeInterval unblockTimeInterval = 5;
 
 -(void)resetWaves
 {
-    [self.shapeLayerLeftMountain removeFromSuperlayer];
-    self.shapeLayerLeftMountain = NULL;
-    
-    [self.gradientLeftMountain removeFromSuperlayer];
-    _gradientLeftMountain = NULL;
-    
-    [self.maskLeftMountain removeFromSuperlayer];
-    self.maskLeftMountain = NULL;
-    
-    [self.shapeLayerCenterMountain removeFromSuperlayer];
-    self.shapeLayerCenterMountain = NULL;
-
-    [self.maskCenterMountain removeFromSuperlayer];
-    self.maskCenterMountain = NULL;
-    
-    [self.gradientCenterMountain removeFromSuperlayer];
-    _gradientCenterMountain = NULL;
-    
-    [self.shapeLayerRightMountain removeFromSuperlayer];
-    self.shapeLayerRightMountain = NULL;
-    
-    [self.maskRightMountain removeFromSuperlayer];
-    self.maskRightMountain = NULL;
-    
-    [self.gradientRightMountain removeFromSuperlayer];
-    _gradientRightMountain = NULL;
+    [self.leftMountain resetWave];
+    [self.centerMountain resetWave];
+    [self.rightMountain resetWave];
     
     [unblockLeftMountainTimer invalidate];
     [unblockCentralMountainTimer invalidate];
@@ -534,7 +418,14 @@ static NSTimeInterval unblockTimeInterval = 5;
     [self _removeMountainPosition:INCMountainPositionCenter];
     [self _removeMountainPosition:INCMountainPositionRight];
     
+    [self.leftMountain removeFromSuperlayer];
+    self.leftMountain = NULL;
     
+    [self.centerMountain removeFromSuperlayer];
+    self.centerMountain = NULL;
+    
+    [self.rightMountain removeFromSuperlayer];
+    self.rightMountain = NULL;
 }
 
 -(void)drawPercent:(float)percent forIdPoint:(NSInteger)idPoint
@@ -544,33 +435,33 @@ static NSTimeInterval unblockTimeInterval = 5;
         return;
     }
     
-    if (self.leftMountainPointId && self.leftMountainPointId.integerValue == idPoint) {
+    if ([self.leftMountain belongsToPointId:idPoint]) {
         [self _drawForLeftMountainPercent:percent forIdPoint:idPoint];
         return;
     }
     
-    if (self.centerMountainPointId && self.centerMountainPointId.integerValue == idPoint) {
+    if ([self.centerMountain belongsToPointId:idPoint]) {
         [self _drawForCenterMountainPercent:percent forIdPoint:idPoint];
         return;
     }
     
-    if (self.rightMountainPointId && self.rightMountainPointId.integerValue == idPoint) {
+    if ([self.rightMountain belongsToPointId:idPoint]) {
         [self _drawForRightMountainPercent:percent forIdPoint:idPoint];
         return;
     }
     
     
-    if (!self.leftMountainPointId) {
+    if (!self.leftMountain.mountainPointId) {
         [self _drawForLeftMountainPercent:percent forIdPoint:idPoint];
         return;
     }
         
-    if (!self.centerMountainPointId) {
+    if (!self.centerMountain.mountainPointId) {
         [self _drawForCenterMountainPercent:percent forIdPoint:idPoint];
         return;
     }
     
-    if (!self.rightMountainPointId) {
+    if (!self.rightMountain.mountainPointId) {
         [self _drawForRightMountainPercent:percent forIdPoint:idPoint];
         return;
     }
