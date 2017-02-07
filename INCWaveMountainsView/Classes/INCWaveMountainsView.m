@@ -179,8 +179,8 @@ static NSInteger MAX_COLUMNS = 3;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 
             [mountainLayer resetMountainPosition];
-            if (mountainLayer.mountainPointId) {
-                [weakSelf.percentReachFull setObject:@YES forKey:mountainLayer.mountainPointId];
+            if (mountainLayer.mountainId) {
+                [weakSelf.percentReachFull setObject:@YES forKey:mountainLayer.mountainId];
             }
         });
     });
@@ -235,7 +235,7 @@ static float distanceBeetweenBackgroundLines = 10;
     
     layer = mountainLayer.shapeLayerMountain;
     mountainLayer.mountainPercent = percent;
-    mountainLayer.mountainPointId = @(idPoint);
+    mountainLayer.mountainId = @(idPoint);
     
 
     float height = self.bounds.size.height;
@@ -359,18 +359,17 @@ static float distanceBeetweenBackgroundLines = 10;
         return;
     }
     
-    
-    if (!self.leftMountain.mountainPointId) {
+    if (!self.leftMountain.mountainId) {
         [self _drawMountainForPercent:percent forIdPoint:idPoint inMountainLayer:self.leftMountain inMountainPosition:INCMountainPositionLeft];
         return;
     }
         
-    if (!self.centerMountain.mountainPointId) {
+    if (!self.centerMountain.mountainId) {
         [self _drawMountainForPercent:percent forIdPoint:idPoint inMountainLayer:self.centerMountain inMountainPosition:INCMountainPositionCenter];
         return;
     }
     
-    if (!self.rightMountain.mountainPointId) {
+    if (!self.rightMountain.mountainId) {
         [self _drawMountainForPercent:percent forIdPoint:idPoint inMountainLayer:self.rightMountain inMountainPosition:INCMountainPositionRight];
         return;
     }
@@ -391,8 +390,8 @@ static float distanceBeetweenBackgroundLines = 10;
 
 -(void)layerResetByTimeOut:(nonnull INCWaveMountainLayer *)layer
 {
-    if (layer.mountainPointId) {
-        [self.percentReachFull setObject:@YES forKey:layer.mountainPointId];
+    if (layer.mountainId) {
+        [self.percentReachFull setObject:@YES forKey:layer.mountainId];
     }
 }
 

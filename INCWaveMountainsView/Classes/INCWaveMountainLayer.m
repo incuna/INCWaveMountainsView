@@ -13,6 +13,7 @@ const NSInteger NO_PERCENT_VALUE = -1;
 const NSInteger MIN_VALUE_PERCENT = 0;
 const NSInteger MAX_VALUE_PERCENT = 1;
 
+static NSTimeInterval unblockTimeInterval = 5;
 
 @interface INCWaveMountainLayer ()
 {
@@ -91,7 +92,7 @@ const NSInteger MAX_VALUE_PERCENT = 1;
 -(void)resetMountainPosition
 {
     self.mountainPercent = NO_PERCENT_VALUE;
-    self.mountainPointId = NULL;
+    self.mountainId = NULL;
 }
 
 - (void)animatePath:(UIBezierPath *)path
@@ -137,9 +138,9 @@ const NSInteger MAX_VALUE_PERCENT = 1;
     [self _invalidateTimer];
 }
 
-- (BOOL)belongsToPointId:(NSInteger)idPoint
+- (BOOL)belongsToPointId:(NSInteger)idMountain
 {
-    return self.mountainPointId && self.mountainPointId.integerValue == idPoint;
+    return self.mountainId && self.mountainId.integerValue == idMountain;
 }
 
 #pragma mark - Timer methods
@@ -160,7 +161,6 @@ const NSInteger MAX_VALUE_PERCENT = 1;
     [unblockLeftMountainTimer invalidate];
 }
 
-static NSTimeInterval unblockTimeInterval = 5;
 -(void)setUpUnblockTimer
 {
     if (!self.unblockMontainsForMissingPercents) {
