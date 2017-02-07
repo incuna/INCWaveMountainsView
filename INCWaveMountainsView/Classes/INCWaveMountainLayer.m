@@ -9,7 +9,6 @@
 #import "INCWaveMountainLayer.h"
 
 const NSInteger NO_PERCENT_VALUE = -1;
-
 const NSInteger MIN_VALUE_PERCENT = 0;
 const NSInteger MAX_VALUE_PERCENT = 1;
 
