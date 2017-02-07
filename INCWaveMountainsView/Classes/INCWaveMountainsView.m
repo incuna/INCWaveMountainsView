@@ -396,5 +396,4 @@ static float distanceBeetweenBackgroundLines = 10;
     }
 }
 
-
 @end

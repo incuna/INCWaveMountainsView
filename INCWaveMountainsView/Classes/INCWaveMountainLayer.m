@@ -18,6 +18,7 @@
 
 @implementation INCWaveMountainLayer
 
+@dynamic delegate;
 
 -(instancetype)init
 {

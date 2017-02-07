@@ -11,7 +11,7 @@
 
 @class INCWaveMountainLayer;
 
-@protocol INCWavwMountainLayerDelegate <NSObject>
+@protocol INCWavwMountainLayerDelegate <CALayerDelegate>
 
 @optional
 -(void)layerResetByTimeOut:(nonnull INCWaveMountainLayer *)layer;
@@ -28,7 +28,7 @@
 @property(nonatomic,strong,nonnull)CAGradientLayer *gradientMountain;
 
 @property(nonatomic,assign)BOOL unblockMontainsForMissingPercents;
-@property(nonatomic,weak,nullable)id<INCWavwMountainLayerDelegate> delegate;
+@property(weak,nullable)id<INCWavwMountainLayerDelegate> delegate;
 
 - (void)resetMountainPosition;
 - (void)animatePath:(nonnull UIBezierPath *)path;
