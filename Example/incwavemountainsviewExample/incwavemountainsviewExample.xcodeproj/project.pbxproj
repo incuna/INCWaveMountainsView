@@ -13,8 +13,8 @@
 		0A3138E51E4A35F600262E68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A3138E31E4A35F600262E68 /* Main.storyboard */; };
 		0A3138E71E4A35F600262E68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A3138E61E4A35F600262E68 /* Assets.xcassets */; };
 		0A3138EA1E4A35F600262E68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A3138E81E4A35F600262E68 /* LaunchScreen.storyboard */; };
-		0A3138F61E4A366200262E68 /* INCWaveMountainLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3138F31E4A366200262E68 /* INCWaveMountainLayer.m */; };
-		0A3138F71E4A366200262E68 /* INCWaveMountainsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3138F51E4A366200262E68 /* INCWaveMountainsView.m */; };
+		0A3138FC1E4A433600262E68 /* INCWaveMountainLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3138F91E4A433600262E68 /* INCWaveMountainLayer.m */; };
+		0A3138FD1E4A433600262E68 /* INCWaveMountainsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3138FB1E4A433600262E68 /* INCWaveMountainsView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,10 +28,10 @@
 		0A3138E61E4A35F600262E68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A3138E91E4A35F600262E68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A3138EB1E4A35F600262E68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0A3138F21E4A366200262E68 /* INCWaveMountainLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INCWaveMountainLayer.h; path = ../../../../../INCWaveMountainsView/INCWaveMountainsView/INCWaveMountainsView/Classes/INCWaveMountainLayer.h; sourceTree = "<group>"; };
-		0A3138F31E4A366200262E68 /* INCWaveMountainLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INCWaveMountainLayer.m; path = ../../../../../INCWaveMountainsView/INCWaveMountainsView/INCWaveMountainsView/Classes/INCWaveMountainLayer.m; sourceTree = "<group>"; };
-		0A3138F41E4A366200262E68 /* INCWaveMountainsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INCWaveMountainsView.h; path = ../../../../../INCWaveMountainsView/INCWaveMountainsView/INCWaveMountainsView/Classes/INCWaveMountainsView.h; sourceTree = "<group>"; };
-		0A3138F51E4A366200262E68 /* INCWaveMountainsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INCWaveMountainsView.m; path = ../../../../../INCWaveMountainsView/INCWaveMountainsView/INCWaveMountainsView/Classes/INCWaveMountainsView.m; sourceTree = "<group>"; };
+		0A3138F81E4A433600262E68 /* INCWaveMountainLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INCWaveMountainLayer.h; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainLayer.h; sourceTree = "<group>"; };
+		0A3138F91E4A433600262E68 /* INCWaveMountainLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INCWaveMountainLayer.m; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainLayer.m; sourceTree = "<group>"; };
+		0A3138FA1E4A433600262E68 /* INCWaveMountainsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INCWaveMountainsView.h; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainsView.h; sourceTree = "<group>"; };
+		0A3138FB1E4A433600262E68 /* INCWaveMountainsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INCWaveMountainsView.m; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainsView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,10 +89,10 @@
 		0A3138F11E4A364E00262E68 /* INCWaveMountains */ = {
 			isa = PBXGroup;
 			children = (
-				0A3138F21E4A366200262E68 /* INCWaveMountainLayer.h */,
-				0A3138F31E4A366200262E68 /* INCWaveMountainLayer.m */,
-				0A3138F41E4A366200262E68 /* INCWaveMountainsView.h */,
-				0A3138F51E4A366200262E68 /* INCWaveMountainsView.m */,
+				0A3138F81E4A433600262E68 /* INCWaveMountainLayer.h */,
+				0A3138F91E4A433600262E68 /* INCWaveMountainLayer.m */,
+				0A3138FA1E4A433600262E68 /* INCWaveMountainsView.h */,
+				0A3138FB1E4A433600262E68 /* INCWaveMountainsView.m */,
 			);
 			name = INCWaveMountains;
 			sourceTree = "<group>";
@@ -169,9 +169,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A3138E21E4A35F600262E68 /* ViewController.m in Sources */,
-				0A3138F71E4A366200262E68 /* INCWaveMountainsView.m in Sources */,
+				0A3138FD1E4A433600262E68 /* INCWaveMountainsView.m in Sources */,
 				0A3138DF1E4A35F600262E68 /* AppDelegate.m in Sources */,
-				0A3138F61E4A366200262E68 /* INCWaveMountainLayer.m in Sources */,
+				0A3138FC1E4A433600262E68 /* INCWaveMountainLayer.m in Sources */,
 				0A3138DC1E4A35F600262E68 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
