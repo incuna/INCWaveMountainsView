@@ -8,6 +8,12 @@
 
 #import "INCWaveMountainLayer.h"
 
+const NSInteger NO_PERCENT_VALUE = -1;
+
+const NSInteger MIN_VALUE_PERCENT = 0;
+const NSInteger MAX_VALUE_PERCENT = 1;
+
+
 @interface INCWaveMountainLayer ()
 {
     NSTimer *unblockLeftMountainTimer;
@@ -24,7 +30,7 @@
 {
     self = [super init];
     if (self) {
-        self.mountainPercent = -1;
+        self.mountainPercent = NO_PERCENT_VALUE;
         self.unblockMontainsForMissingPercents = YES;
     }
     return self;
@@ -65,11 +71,26 @@
     return _shapeLayerMountain;
 }
 
+-(void)setMountainPercent:(float)mountainPercent
+{
+    if (mountainPercent < MIN_VALUE_PERCENT && mountainPercent != NO_PERCENT_VALUE) {
+        _mountainPercent = MIN_VALUE_PERCENT;
+        return;
+    }
+    
+    if (mountainPercent > MAX_VALUE_PERCENT && mountainPercent != NO_PERCENT_VALUE) {
+        _mountainPercent = MAX_VALUE_PERCENT;
+        return;
+    }
+    
+    _mountainPercent = mountainPercent;
+}
+
 #pragma mark - Public methods
 
 -(void)resetMountainPosition
 {
-    self.mountainPercent = -1;
+    self.mountainPercent = NO_PERCENT_VALUE;
     self.mountainPointId = NULL;
 }
 
