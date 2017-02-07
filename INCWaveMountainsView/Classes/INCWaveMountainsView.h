@@ -22,9 +22,16 @@
 @property(nonatomic,strong,nonnull)CAGradientLayer *gradientCenterMountain;
 @property(nonatomic,strong,nonnull)CAGradientLayer *gradientRightMountain;
 
-
--(void)resetWaves;//This reset the waves to the initial value
--(void)drawPercent:(float)percent forIdPoint:(NSInteger)idPoint;//This draws the percent for idPoint. The percent goes between 0 and 1. Negative values and values bigger than 1 are ignored.
+/*!
+ * @discussion This reset the waves to the initial value
+ */
+-(void)resetWaves;
+/*!
+ * @discussion This draws the percent for idPoint. The percent goes between 0 and 1. Negative values and values bigger than 1 are ignored.
+ * @param percent The value percent to update. 
+ * @param idPoint the id for the point to update. In terms of keep a tracking of which mountain was updated we need an id.
+ */
+-(void)drawPercent:(float)percent forIdPoint:(NSInteger)idPoint;
 
 @property(nonatomic,assign)BOOL unblockMontainsForMissingPercents;//If this property is true, if the point is not updated in 2sec the mountain is released to accept a new point. Default YES
 @end

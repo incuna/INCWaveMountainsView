@@ -8,6 +8,12 @@
 
 #import "INCWaveMountainLayer.h"
 
+const NSInteger NO_PERCENT_VALUE = -1;
+const NSInteger MIN_VALUE_PERCENT = 0;
+const NSInteger MAX_VALUE_PERCENT = 1;
+
+static NSTimeInterval unblockTimeInterval = 5;
+
 @interface INCWaveMountainLayer ()
 {
     NSTimer *unblockLeftMountainTimer;
@@ -18,12 +24,13 @@
 
 @implementation INCWaveMountainLayer
 
+@dynamic delegate;
 
 -(instancetype)init
 {
     self = [super init];
     if (self) {
-        self.mountainPercent = -1;
+        self.mountainPercent = NO_PERCENT_VALUE;
         self.unblockMontainsForMissingPercents = YES;
     }
     return self;
@@ -64,12 +71,27 @@
     return _shapeLayerMountain;
 }
 
+-(void)setMountainPercent:(float)mountainPercent
+{
+    if (mountainPercent < MIN_VALUE_PERCENT && mountainPercent != NO_PERCENT_VALUE) {
+        _mountainPercent = MIN_VALUE_PERCENT;
+        return;
+    }
+    
+    if (mountainPercent > MAX_VALUE_PERCENT && mountainPercent != NO_PERCENT_VALUE) {
+        _mountainPercent = MAX_VALUE_PERCENT;
+        return;
+    }
+    
+    _mountainPercent = mountainPercent;
+}
+
 #pragma mark - Public methods
 
 -(void)resetMountainPosition
 {
-    self.mountainPercent = -1;
-    self.mountainPointId = NULL;
+    self.mountainPercent = NO_PERCENT_VALUE;
+    self.mountainId = NULL;
 }
 
 - (void)animatePath:(UIBezierPath *)path
@@ -115,9 +137,9 @@
     [self _invalidateTimer];
 }
 
-- (BOOL)belongsToPointId:(NSInteger)idPoint
+- (BOOL)belongsToPointId:(NSInteger)idMountain
 {
-    return self.mountainPointId && self.mountainPointId.integerValue == idPoint;
+    return self.mountainId && self.mountainId.integerValue == idMountain;
 }
 
 #pragma mark - Timer methods
@@ -138,7 +160,6 @@
     [unblockLeftMountainTimer invalidate];
 }
 
-static NSTimeInterval unblockTimeInterval = 5;
 -(void)setUpUnblockTimer
 {
     if (!self.unblockMontainsForMissingPercents) {
