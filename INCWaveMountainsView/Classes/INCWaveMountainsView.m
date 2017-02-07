@@ -17,10 +17,8 @@ typedef NS_ENUM(NSInteger, INCMountainPosition){
 
 @interface INCWaveMountainsView ()<INCWavwMountainLayerDelegate>
 
-
 //Left mountain
 @property(nonatomic,strong)INCWaveMountainLayer *leftMountain;
-
 
 //Central mountain
 @property(nonatomic,strong)INCWaveMountainLayer *centerMountain;
@@ -28,12 +26,11 @@ typedef NS_ENUM(NSInteger, INCMountainPosition){
 //Right mountain
 @property(nonatomic,strong)INCWaveMountainLayer *rightMountain;
 
-
-@property(nonatomic,strong)NSMutableDictionary *percentReachFull;
+@property(nonatomic,strong)NSMutableDictionary <NSNumber *,NSNumber *>*percentReachFull;
 @property(nonatomic,strong)UIBezierPath *backgroundPath;
+@property(nonatomic,strong)NSDictionary <NSNumber *,NSNumber *>*indexDict;
 
 @end
-
 
 @implementation INCWaveMountainsView
 
@@ -43,6 +40,9 @@ static NSInteger MAX_COLUMNS = 3;
 
 -(void)commonInit{
     self.unblockMontainsForMissingPercents = YES;
+    self.indexDict = @{@(INCMountainPositionLeft):@0,
+                       @(INCMountainPositionCenter):@1,
+                       @(INCMountainPositionRight):@2};
 }
 
 -(instancetype)init
@@ -83,13 +83,21 @@ static NSInteger MAX_COLUMNS = 3;
     }
 }
 
+-(void)_initialSetUpMountain:(INCWaveMountainLayer *)mountain
+{
+    if (mountain) {
+        [mountain setFillColor:[UIColor clearColor].CGColor];
+        [mountain setDelegate:self];
+        [mountain setUnblockMontainsForMissingPercents:self.unblockMontainsForMissingPercents];
+    }
+
+}
+
 -(INCWaveMountainLayer *)leftMountain
 {
     if (!_leftMountain) {
         _leftMountain = [[INCWaveMountainLayer alloc]init];
-        _leftMountain.fillColor = [UIColor clearColor].CGColor;
-        _leftMountain.delegate = self;
-        _leftMountain.unblockMontainsForMissingPercents = self.unblockMontainsForMissingPercents;
+        [self _initialSetUpMountain:_leftMountain];
         [self.layer addSublayer:_leftMountain];
     }
     return _leftMountain;
@@ -99,9 +107,7 @@ static NSInteger MAX_COLUMNS = 3;
 {
     if (!_centerMountain) {
         _centerMountain = [[INCWaveMountainLayer alloc]init];
-        _centerMountain.fillColor = [UIColor clearColor].CGColor;
-        _centerMountain.delegate = self;
-        _centerMountain.unblockMontainsForMissingPercents = self.unblockMontainsForMissingPercents;
+        [self _initialSetUpMountain:_centerMountain];
         [self.layer addSublayer:_centerMountain];
     }
     return _centerMountain;
@@ -111,14 +117,11 @@ static NSInteger MAX_COLUMNS = 3;
 {
     if (!_rightMountain) {
         _rightMountain = [[INCWaveMountainLayer alloc]init];
-        _rightMountain.fillColor = [UIColor clearColor].CGColor;
-        _rightMountain.delegate = self;
-        _rightMountain.unblockMontainsForMissingPercents = self.unblockMontainsForMissingPercents;
+        [self _initialSetUpMountain:_rightMountain];
         [self.layer addSublayer:_rightMountain];
     }
     return _rightMountain;
 }
-
 
 -(CAGradientLayer *)gradientLeftMountain
 {
@@ -213,31 +216,11 @@ static float distanceBeetweenBackgroundLines = 10;
 //For now this method remains in the view
 - (UIBezierPath *)_pathWithIdPoint:(NSInteger)idPoint percent:(float)percent inMountainLayer:(INCWaveMountainLayer *)mountainLayer inMountainPosition:(INCMountainPosition)mountainPosition
 {
-    int index = -1;
-
-    CAShapeLayer *layer;
-    switch (mountainPosition) {
-        case INCMountainPositionLeft:
-            
-            index = 0;
-            break;
-            
-        case INCMountainPositionCenter:
-            
-            index = 1;
-            break;
-            
-        case INCMountainPositionRight:
-            
-            index = 2;
-            break;
-    }
+    int index = [self.indexDict[@(mountainPosition)] intValue];
     
-    layer = mountainLayer.shapeLayerMountain;
     mountainLayer.mountainPercent = percent;
     mountainLayer.mountainId = @(idPoint);
     
-
     float height = self.bounds.size.height;
 
     UIBezierPath *path = [UIBezierPath bezierPath];
