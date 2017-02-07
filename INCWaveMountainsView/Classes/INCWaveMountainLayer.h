@@ -24,13 +24,13 @@ extern const NSInteger NO_PERCENT_VALUE;
 @interface INCWaveMountainLayer : CAShapeLayer
 
 
-@property(nonatomic,strong,nonnull)CAShapeLayer *shapeLayerMountain;//This property define the shape of the mountain
-@property(nonatomic,assign)float mountainPercent;//This define the hight of the mountain, the value has to be between 0 to 1 or NO_PERCENT_VALUE. A lower value will be considered 0 and higher value will be considered 1.
-@property(atomic,strong,nullable)NSNumber *mountainId;//This is the id of the mountain
-@property(nonatomic,strong,nonnull)CAShapeLayer *maskMountain;//Mask layer
-@property(nonatomic,strong,nonnull)CAGradientLayer *gradientMountain;//Gradient colour
+@property(nonatomic,strong,nonnull)CAShapeLayer *shapeLayerMountain;///This property define the shape of the mountain
+@property(nonatomic,assign)float mountainPercent;///This define the hight of the mountain, the value has to be between 0 to 1 or NO_PERCENT_VALUE. A lower value will be considered 0 and higher value will be considered 1.
+@property(atomic,strong,nullable)NSNumber *mountainId;///This is the id of the mountain
+@property(nonatomic,strong,nonnull)CAShapeLayer *maskMountain;///Mask layer
+@property(nonatomic,strong,nonnull)CAGradientLayer *gradientMountain;///Gradient colour
 
-@property(nonatomic,assign)BOOL unblockMontainsForMissingPercents;//If yes the time can be set up to unblock a mountain automatically. If after unblockTimeInterval time the layer doesn't new values the mountain is reset to 0.
+@property(nonatomic,assign)BOOL unblockMontainsForMissingPercents;///If yes the time can be set up to unblock a mountain automatically. If after unblockTimeInterval time the layer doesn't new values the mountain is reset to 0.
 @property(weak,nullable)id<INCWavwMountainLayerDelegate> delegate;
 
 /*!
