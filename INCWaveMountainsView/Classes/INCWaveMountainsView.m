@@ -8,7 +8,12 @@
 
 #import "INCWaveMountainsView.h"
 #import "INCWaveMountainLayer.h"
-#import "INCWaveMountainTypes.h"
+
+typedef NS_ENUM(NSInteger, INCMountainPosition){
+    INCMountainPositionLeft,
+    INCMountainPositionCenter,
+    INCMountainPositionRight
+};
 
 @interface INCWaveMountainsView ()<INCWavwMountainLayerDelegate>
 

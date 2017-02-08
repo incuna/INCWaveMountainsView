@@ -8,12 +8,18 @@
 
 #import "INCWaveMountainsView.h"
 #import "INCWaveMountainLayer.h"
-#import "INCWaveMountainTypes.h"
 
 @interface INCWaveMountainsView (Testable)
 
+//Left mountain
+@property(nonatomic,strong)INCWaveMountainLayer *leftMountain;
 
--(void)_removeThePointWithIdPoint:(NSInteger)idPoint inMountainLayer:(INCWaveMountainLayer *)mountainLayer inMountainPosition:(INCMountainPosition)mountainPosition later:(NSTimeInterval)laterTime;
+//Central mountain
+@property(nonatomic,strong)INCWaveMountainLayer *centerMountain;
+
+//Right mountain
+@property(nonatomic,strong)INCWaveMountainLayer *rightMountain;
+
 
 
 @end
