@@ -8,12 +8,7 @@
 
 #import "INCWaveMountainsView.h"
 #import "INCWaveMountainLayer.h"
-
-typedef NS_ENUM(NSInteger, INCMountainPosition){
-    INCMountainPositionLeft,
-    INCMountainPositionCenter,
-    INCMountainPositionRight
-};
+#import "INCWaveMountainTypes.h"
 
 @interface INCWaveMountainsView ()<INCWavwMountainLayerDelegate>
 
@@ -162,28 +157,39 @@ static NSInteger MAX_COLUMNS = 3;
     return _percentReachFull;
 }
 
--(void)_removeThePointWithIdPoint:(NSInteger)idPoint inMountainLayer:(INCWaveMountainLayer *)mountainLayer inMountainPosition:(INCMountainPosition)mountainPosition
+#pragma mark - Other Private methods
+
+-(void)_resetByReachingMaximumMountainLayer:(INCWaveMountainLayer *)mountainLayer
+{
+    [mountainLayer resetMountainPosition];
+    if (mountainLayer.mountainId) {
+        [self.percentReachFull setObject:@YES forKey:mountainLayer.mountainId];
+    }
+}
+
+-(void)_removeThePointWithIdPoint:(NSInteger)idPoint inMountainLayer:(INCWaveMountainLayer *)mountainLayer inMountainPosition:(INCMountainPosition)mountainPosition later:(NSTimeInterval)laterTime
 {
     //In order to reset the values we need to reset the values to 0 and then remove the point.
-    
-    __weak typeof(self) weakSelf = self;
-    dispatch_group_t group = dispatch_group_create();
-    
-    dispatch_group_enter(group);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self _animateIdPoint:idPoint withPercent:0 inMountainLayer:mountainLayer andInPosition:mountainPosition];
-        dispatch_group_leave(group);
-    });
-    
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+    if (laterTime > 0) {
+        __weak typeof(self) weakSelf = self;
+        dispatch_group_t group = dispatch_group_create();
+        
+        dispatch_group_enter(group);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-
-            [mountainLayer resetMountainPosition];
-            if (mountainLayer.mountainId) {
-                [weakSelf.percentReachFull setObject:@YES forKey:mountainLayer.mountainId];
-            }
+            [weakSelf _animateIdPoint:idPoint withPercent:0 inMountainLayer:mountainLayer andInPosition:mountainPosition];
+            dispatch_group_leave(group);
         });
-    });
+        
+        dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [weakSelf _resetByReachingMaximumMountainLayer:mountainLayer];
+            });
+        });
+    }
+    else{
+        [self _animateIdPoint:idPoint withPercent:0 inMountainLayer:mountainLayer andInPosition:mountainPosition];
+        [self _resetByReachingMaximumMountainLayer:mountainLayer];
+    }
 }
 
 #pragma mark - Drawing functions
@@ -286,7 +292,8 @@ static float distanceBeetweenBackgroundLines = 10;
     [self _animateIdPoint:idPoint withPercent:percent inMountainLayer:mountainLayer andInPosition:mountainPosition];
     
     if (percent == 1) {
-        [self _removeThePointWithIdPoint:idPoint inMountainLayer:mountainLayer inMountainPosition:mountainPosition];
+        //We need to do it later because we just animated the point so the view need to have time to refresh.
+        [self _removeThePointWithIdPoint:idPoint inMountainLayer:mountainLayer inMountainPosition:mountainPosition later:0.1];
     }
 }
 
