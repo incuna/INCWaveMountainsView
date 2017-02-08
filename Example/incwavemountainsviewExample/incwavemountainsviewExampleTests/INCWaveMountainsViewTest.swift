@@ -47,4 +47,67 @@ class INCWaveMountainsViewTest: XCTestCase {
         
         XCTAssert(true,"No founded mountain")
     }
+    
+    private var expectationTestPointIsReseted:XCTestExpectation?
+
+    func testPointIsReseted(){
+        
+        let mountainView:INCWaveMountainsView = INCWaveMountainsView.init()
+        mountainView.unblockMontainsForMissingPercents = false; // We set this to false so we are not worried about the amount of time to check the right behaviour.
+        
+        
+        //first we need to find the right layer
+        
+        mountainView.drawPercent(0.1, forIdPoint: 1)
+
+        var mountainLayer:INCWaveMountainLayer?
+        if mountainView.leftMountain.mountainId == 1 {
+            mountainLayer = mountainView.leftMountain
+        }
+        
+        if mountainView.centerMountain.mountainId == 1 {
+            mountainLayer = mountainView.centerMountain
+        }
+        
+        if mountainView.rightMountain.mountainId == 1 {
+            mountainLayer = mountainView.rightMountain
+        }
+        
+        guard let mountainLayerUnw = mountainLayer else {
+            XCTAssert(true,"No founded mountain")
+            return
+        }
+        
+        
+        mountainLayerUnw.addObserver(self, forKeyPath:NSStringFromSelector(#selector(getter: INCWaveMountainLayer.mountainPercent)), options: .new, context: &expectationTestPointIsReseted)
+
+        mountainView.drawPercent(1, forIdPoint: 1)
+
+        expectationTestPointIsReseted = self.expectation(description: "Test point isReseted")
+        self.waitForExpectations(timeout: 5) { (error:Error?) in
+            guard error != nil else{
+                XCTAssert(true,"The mountain was not reseted: Error: \(error!)")
+                return
+            }
+            XCTAssert(true,"The mountain was not reseted: Time Out")
+        }
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        guard let keyPathUwp = keyPath else {
+            XCTAssert(true,"The keys path is nil")
+            return
+        }
+        
+        
+        if keyPathUwp == NSStringFromSelector(#selector(getter: INCWaveMountainLayer.mountainPercent)) && context == &expectationTestPointIsReseted{
+            guard let mountain = object as? INCWaveMountainLayer, mountain.mountainPercent == Float(NO_PERCENT_VALUE) else {
+                return
+            }
+            expectationTestPointIsReseted!.fulfill()
+        }
+    }
+    
 }
+
