@@ -1,0 +1,23 @@
+language: objective-c
+osx_image: xcode8.1
+xcode_workspace: ./Example/incwavemountainsviewExample/incwavemountainsviewExample.xcodeproj
+xcode_scheme: incwavemountainsviewExample
+xcode_sdk: iphonesimulator
+env:
+  matrix:
+  - DEVICE="iPhone 6s"
+  - DEVICE="iPhone 7"
+  global:
+install: 
+      - bundle update
+podfile: Podfile
+script:
+   travis_wait bundle exec ./Example/incwavemountainsviewExample/fastlane run_test_travis;
+notifications:
+  email: false
+branches:
+  only:
+  - master
+  - "/^\\d+(\\.(x|\\d+)){1,2}$/"
+  - "/^develop/"
+  - "/^feature-./"
