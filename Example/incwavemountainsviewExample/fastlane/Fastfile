@@ -1,0 +1,46 @@
+# Customise this file, documentation can be found here:
+# https://github.com/fastlane/fastlane/tree/master/docs
+# All available actions: https://github.com/fastlane/fastlane/blob/master/docs/Actions.md
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# By default, fastlane will send which actions are used
+# No personal data is shared, more information on https://github.com/fastlane/enhancer
+# Uncomment the following line to opt out
+# opt_out_usage
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+require 'credentials_manager'
+
+#if you wan to set up this project you need to user the env: SCAN_PROJECT or SCAN_WORKSPACE and SCAN_SCHEME
+
+default_platform :ios
+
+platform :ios do
+  FORCE_DEVICES = false
+  before_all do |lane, options|
+    # cocoapods We need to fix the problem with repos
+
+    if options.key?(:force_devices)
+        if options[:force_devices] == true || options[:force_devices] == false
+            FORCE_DEVICES = options[:force_devices]
+        else
+           raise 'Wrong parameter force_devices. Please provide: force_devices:true or force:devices:false'
+        end
+    end
+  end
+
+  desc "Test app the app with travis"
+  lane :run_test_travis do
+    DEVICES = ENV["DEVICE"] || "iPhone 6s"
+    scan(devices: [DEVICES], clean: true)
+  end
+end
+# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/docs/Platforms.md
+# All available actions: https://github.com/fastlane/fastlane/blob/master/docs/Actions.md
