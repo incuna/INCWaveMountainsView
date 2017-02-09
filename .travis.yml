@@ -1,9 +1,11 @@
 language: objective-c
 osx_image: xcode8.1
-xcode_workspace: ./Example/incwavemountainsviewExample/incwavemountainsviewExample.xcodeproj
+xcode_project: ./Example/incwavemountainsviewExample/incwavemountainsviewExample.xcodeproj
 xcode_scheme: incwavemountainsviewExample
 xcode_sdk: iphonesimulator
 env:
+  SCAN_PROJECT="incwavemountainsviewExample.xcodeproj"
+  SCAN_SCHEME="incwavemountainsviewExample"
   matrix:
   - DEVICE="iPhone 6s"
   - DEVICE="iPhone 7"
