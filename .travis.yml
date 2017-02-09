@@ -14,8 +14,8 @@ install:
       - bundle update
 podfile: Podfile
 script:
-   cd Example/incwavemountainsviewExample
-   travis_wait bundle exec ./Example/incwavemountainsviewExample/fastlane run_test_travis;
+   - cd Example/incwavemountainsviewExample
+   - travis_wait bundle exec ./Example/incwavemountainsviewExample/fastlane run_test_travis;
 notifications:
   email: false
 branches:
