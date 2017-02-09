@@ -171,10 +171,7 @@ static NSInteger MAX_COLUMNS = 3;
     
     dispatch_group_enter(group);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        UIBezierPath *path = [self _pathWithIdPoint:idPoint percent:0 inMountainLayer:mountainLayer inMountainPosition:mountainPosition];
-        if (path) {
-            [mountainLayer animatePath:path];
-        }
+        [self _animateIdPoint:idPoint withPercent:0 inMountainLayer:mountainLayer andInPosition:mountainPosition];
         dispatch_group_leave(group);
     });
     
@@ -276,14 +273,17 @@ static float distanceBeetweenBackgroundLines = 10;
     return path;
 }
 
+-(void)_animateIdPoint:(NSInteger)idPoint withPercent:(float)percent inMountainLayer:(INCWaveMountainLayer *)mountainLayer andInPosition:(INCMountainPosition)mountainPosition
+{
+    UIBezierPath *path = [self _pathWithIdPoint:idPoint percent:percent inMountainLayer:mountainLayer inMountainPosition:mountainPosition];
+    if (path) {
+        [mountainLayer animatePath:path];
+    }
+}
 
 -(void)_drawPercent:(float)percent forIdPoint:(NSInteger)idPoint inMountainLayer:(INCWaveMountainLayer *)mountainLayer inMountainPosition:(INCMountainPosition)mountainPosition{
     
-    UIBezierPath *path = [self _pathWithIdPoint:idPoint percent:percent inMountainLayer:mountainLayer inMountainPosition:mountainPosition];
-    if (!path) {
-        return;
-    }
-    [mountainLayer animatePath:path];
+    [self _animateIdPoint:idPoint withPercent:percent inMountainLayer:mountainLayer andInPosition:mountainPosition];
     
     if (percent == 1) {
         [self _removeThePointWithIdPoint:idPoint inMountainLayer:mountainLayer inMountainPosition:mountainPosition];
