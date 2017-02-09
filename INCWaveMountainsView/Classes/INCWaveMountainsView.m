@@ -322,9 +322,13 @@ static float distanceBeetweenBackgroundLines = 10;
 
 -(void)drawPercent:(float)percent forIdPoint:(NSInteger)idPoint
 {
-    if (self.percentReachFull[@(idPoint)] || percent < 0 || percent > 1) {
+    if (self.percentReachFull[@(idPoint)] || percent < 0) {
         //If the point was already shown as full or the percent is no positive we don't do anything
         return;
+    }
+    
+    if (percent > 1) {
+        percent = 1;
     }
     
     if ([self.leftMountain belongsToPointId:idPoint]) {
