@@ -101,7 +101,8 @@ class INCWaveMountainsViewTest: XCTestCase {
         }
         
         
-        if keyPathUwp == NSStringFromSelector(#selector(getter: INCWaveMountainLayer.mountainPercent)) && context == &expectationTestPointIsReset{
+        let stringForMountainPercentProperty = NSStringFromSelector(#selector(getter: INCWaveMountainLayer.mountainPercent))
+        if keyPathUwp == stringForMountainPercentProperty && context == &expectationTestPointIsReset{
             guard let mountain = object as? INCWaveMountainLayer, mountain.mountainPercent == Float(NO_PERCENT_VALUE) else {
                 return
             }
