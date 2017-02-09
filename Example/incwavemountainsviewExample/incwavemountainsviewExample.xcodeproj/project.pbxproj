@@ -32,6 +32,8 @@
 		0A3138F91E4A433600262E68 /* INCWaveMountainLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INCWaveMountainLayer.m; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainLayer.m; sourceTree = "<group>"; };
 		0A3138FA1E4A433600262E68 /* INCWaveMountainsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INCWaveMountainsView.h; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainsView.h; sourceTree = "<group>"; };
 		0A3138FB1E4A433600262E68 /* INCWaveMountainsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INCWaveMountainsView.m; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainsView.m; sourceTree = "<group>"; };
+		0A31472E1E4B351500014C92 /* INCWaveMountainsView+Testable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "INCWaveMountainsView+Testable.h"; sourceTree = "<group>"; };
+		0A3147311E4B359500014C92 /* INCWaveMountainTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INCWaveMountainTypes.h; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainTypes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		0A3138D91E4A35F600262E68 /* incwavemountainsviewExample */ = {
 			isa = PBXGroup;
 			children = (
+				0A31472D1E4B349B00014C92 /* TestableCategories */,
 				0A3138F11E4A364E00262E68 /* INCWaveMountains */,
 				0A3138DD1E4A35F600262E68 /* AppDelegate.h */,
 				0A3138DE1E4A35F600262E68 /* AppDelegate.m */,
@@ -91,10 +94,19 @@
 			children = (
 				0A3138F81E4A433600262E68 /* INCWaveMountainLayer.h */,
 				0A3138F91E4A433600262E68 /* INCWaveMountainLayer.m */,
+				0A3147311E4B359500014C92 /* INCWaveMountainTypes.h */,
 				0A3138FA1E4A433600262E68 /* INCWaveMountainsView.h */,
 				0A3138FB1E4A433600262E68 /* INCWaveMountainsView.m */,
 			);
 			name = INCWaveMountains;
+			sourceTree = "<group>";
+		};
+		0A31472D1E4B349B00014C92 /* TestableCategories */ = {
+			isa = PBXGroup;
+			children = (
+				0A31472E1E4B351500014C92 /* INCWaveMountainsView+Testable.h */,
+			);
+			path = TestableCategories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -327,6 +339,7 @@
 				0A3138F01E4A35F600262E68 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

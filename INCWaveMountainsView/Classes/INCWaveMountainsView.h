@@ -34,4 +34,5 @@
 -(void)drawPercent:(float)percent forIdPoint:(NSInteger)idPoint;
 
 @property(nonatomic,assign)BOOL unblockMontainsForMissingPercents;///If this property is true, if the point is not updated in 2sec the mountain is released to accept a new point. Default YES
+
 @end
