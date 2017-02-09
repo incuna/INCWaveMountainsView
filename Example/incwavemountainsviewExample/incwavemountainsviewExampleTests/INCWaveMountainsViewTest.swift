@@ -28,7 +28,7 @@ class INCWaveMountainsViewTest: XCTestCase {
         
         let mountainView:INCWaveMountainsView = INCWaveMountainsView.init()
         
-        mountainView.drawPercent(0.1, forIdPoint: 1)
+        mountainView.drawPercent(0.1, forIdPoint: 4)
         
         if mountainView.leftMountain.mountainId == 1 {
             XCTAssertEqual(mountainView.leftMountain.mountainPercent, 0.1)
