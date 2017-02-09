@@ -48,9 +48,9 @@ class INCWaveMountainsViewTest: XCTestCase {
         XCTAssert(true,"No founded mountain")
     }
     
-    private var expectationTestPointIsReseted:XCTestExpectation?
+    private var expectationTestPointIsReset:XCTestExpectation?
 
-    func testPointIsReseted(){
+    func testPointIsReset(){
         
         let mountainView:INCWaveMountainsView = INCWaveMountainsView.init()
         mountainView.unblockMontainsForMissingPercents = false; // We set this to false so we are not worried about the amount of time to check the right behaviour.
@@ -79,17 +79,17 @@ class INCWaveMountainsViewTest: XCTestCase {
         }
         
         
-        mountainLayerUnw.addObserver(self, forKeyPath:NSStringFromSelector(#selector(getter: INCWaveMountainLayer.mountainPercent)), options: .new, context: &expectationTestPointIsReseted)
+        mountainLayerUnw.addObserver(self, forKeyPath:NSStringFromSelector(#selector(getter: INCWaveMountainLayer.mountainPercent)), options: .new, context: &expectationTestPointIsReset)
 
         mountainView.drawPercent(1, forIdPoint: 1)
 
-        expectationTestPointIsReseted = self.expectation(description: "Test point isReseted")
+        expectationTestPointIsReset = self.expectation(description: "Test point isReset")
         self.waitForExpectations(timeout: 5) { (error:Error?) in
             guard error != nil else{
-                XCTAssert(true,"The mountain was not reseted: Error: \(error!)")
+                XCTAssert(true,"The mountain was not reset: Error: \(error!)")
                 return
             }
-            XCTAssert(true,"The mountain was not reseted: Time Out")
+            XCTAssert(true,"The mountain was not reset: Time Out")
         }
     }
     
@@ -101,11 +101,11 @@ class INCWaveMountainsViewTest: XCTestCase {
         }
         
         
-        if keyPathUwp == NSStringFromSelector(#selector(getter: INCWaveMountainLayer.mountainPercent)) && context == &expectationTestPointIsReseted{
+        if keyPathUwp == NSStringFromSelector(#selector(getter: INCWaveMountainLayer.mountainPercent)) && context == &expectationTestPointIsReset{
             guard let mountain = object as? INCWaveMountainLayer, mountain.mountainPercent == Float(NO_PERCENT_VALUE) else {
                 return
             }
-            expectationTestPointIsReseted!.fulfill()
+            expectationTestPointIsReset!.fulfill()
         }
     }
     
