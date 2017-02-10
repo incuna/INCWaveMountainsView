@@ -5,8 +5,8 @@ xcode_scheme: incwavemountainsviewExample
 xcode_sdk: iphonesimulator
 env:
   global:
-    - SCAN_PROJECT=incwavemountainsviewExample.xcodeproj
-    - SCAN_SCHEME=incwavemountainsviewExample
+    - SCAN_PROJECT='incwavemountainsviewExample.xcodeproj'
+    - SCAN_SCHEME='incwavemountainsviewExample'
   matrix:
     - DEVICE="iPhone 6s"
     - DEVICE="iPhone 7"
