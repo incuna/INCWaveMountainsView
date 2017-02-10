@@ -15,7 +15,18 @@
 		0A3138EA1E4A35F600262E68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A3138E81E4A35F600262E68 /* LaunchScreen.storyboard */; };
 		0A3138FC1E4A433600262E68 /* INCWaveMountainLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3138F91E4A433600262E68 /* INCWaveMountainLayer.m */; };
 		0A3138FD1E4A433600262E68 /* INCWaveMountainsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3138FB1E4A433600262E68 /* INCWaveMountainsView.m */; };
+		0A3147421E4B36C200014C92 /* INCWaveMountainsViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3147411E4B36C200014C92 /* INCWaveMountainsViewTest.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0A31473B1E4B368500014C92 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A3138CF1E4A35F600262E68 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A3138D61E4A35F600262E68;
+			remoteInfo = incwavemountainsviewExample;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0A3138D71E4A35F600262E68 /* incwavemountainsviewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = incwavemountainsviewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -33,11 +44,21 @@
 		0A3138FA1E4A433600262E68 /* INCWaveMountainsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INCWaveMountainsView.h; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainsView.h; sourceTree = "<group>"; };
 		0A3138FB1E4A433600262E68 /* INCWaveMountainsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INCWaveMountainsView.m; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainsView.m; sourceTree = "<group>"; };
 		0A31472E1E4B351500014C92 /* INCWaveMountainsView+Testable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "INCWaveMountainsView+Testable.h"; sourceTree = "<group>"; };
-		0A3147311E4B359500014C92 /* INCWaveMountainTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INCWaveMountainTypes.h; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainTypes.h; sourceTree = "<group>"; };
+		0A3147361E4B368500014C92 /* incwavemountainsviewExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = incwavemountainsviewExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A31473A1E4B368500014C92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A3147401E4B36C200014C92 /* incwavemountainsviewExampleTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "incwavemountainsviewExampleTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		0A3147411E4B36C200014C92 /* INCWaveMountainsViewTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INCWaveMountainsViewTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		0A3138D41E4A35F600262E68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A3147331E4B368500014C92 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -51,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				0A3138D91E4A35F600262E68 /* incwavemountainsviewExample */,
+				0A3147371E4B368500014C92 /* incwavemountainsviewExampleTests */,
 				0A3138D81E4A35F600262E68 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				0A3138D71E4A35F600262E68 /* incwavemountainsviewExample.app */,
+				0A3147361E4B368500014C92 /* incwavemountainsviewExampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -94,7 +117,6 @@
 			children = (
 				0A3138F81E4A433600262E68 /* INCWaveMountainLayer.h */,
 				0A3138F91E4A433600262E68 /* INCWaveMountainLayer.m */,
-				0A3147311E4B359500014C92 /* INCWaveMountainTypes.h */,
 				0A3138FA1E4A433600262E68 /* INCWaveMountainsView.h */,
 				0A3138FB1E4A433600262E68 /* INCWaveMountainsView.m */,
 			);
@@ -107,6 +129,16 @@
 				0A31472E1E4B351500014C92 /* INCWaveMountainsView+Testable.h */,
 			);
 			path = TestableCategories;
+			sourceTree = "<group>";
+		};
+		0A3147371E4B368500014C92 /* incwavemountainsviewExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				0A31473A1E4B368500014C92 /* Info.plist */,
+				0A3147411E4B36C200014C92 /* INCWaveMountainsViewTest.swift */,
+				0A3147401E4B36C200014C92 /* incwavemountainsviewExampleTests-Bridging-Header.h */,
+			);
+			path = incwavemountainsviewExampleTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,6 +161,24 @@
 			productReference = 0A3138D71E4A35F600262E68 /* incwavemountainsviewExample.app */;
 			productType = "com.apple.product-type.application";
 		};
+		0A3147351E4B368500014C92 /* incwavemountainsviewExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0A31473D1E4B368500014C92 /* Build configuration list for PBXNativeTarget "incwavemountainsviewExampleTests" */;
+			buildPhases = (
+				0A3147321E4B368500014C92 /* Sources */,
+				0A3147331E4B368500014C92 /* Frameworks */,
+				0A3147341E4B368500014C92 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0A31473C1E4B368500014C92 /* PBXTargetDependency */,
+			);
+			name = incwavemountainsviewExampleTests;
+			productName = incwavemountainsviewExampleTests;
+			productReference = 0A3147361E4B368500014C92 /* incwavemountainsviewExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -141,6 +191,12 @@
 					0A3138D61E4A35F600262E68 = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
+					};
+					0A3147351E4B368500014C92 = {
+						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 0A3138D61E4A35F600262E68;
 					};
 				};
 			};
@@ -158,6 +214,7 @@
 			projectRoot = "";
 			targets = (
 				0A3138D61E4A35F600262E68 /* incwavemountainsviewExample */,
+				0A3147351E4B368500014C92 /* incwavemountainsviewExampleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -170,6 +227,13 @@
 				0A3138EA1E4A35F600262E68 /* LaunchScreen.storyboard in Resources */,
 				0A3138E71E4A35F600262E68 /* Assets.xcassets in Resources */,
 				0A3138E51E4A35F600262E68 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0A3147341E4B368500014C92 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,7 +252,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0A3147321E4B368500014C92 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A3147421E4B36C200014C92 /* INCWaveMountainsViewTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0A31473C1E4B368500014C92 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A3138D61E4A35F600262E68 /* incwavemountainsviewExample */;
+			targetProxy = 0A31473B1E4B368500014C92 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0A3138E31E4A35F600262E68 /* Main.storyboard */ = {
@@ -320,6 +400,37 @@
 			};
 			name = Release;
 		};
+		0A31473E1E4B368500014C92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = incwavemountainsviewExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Incuna.incwavemountainsviewExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "incwavemountainsviewExampleTests/incwavemountainsviewExampleTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/incwavemountainsviewExample.app/incwavemountainsviewExample";
+			};
+			name = Debug;
+		};
+		0A31473F1E4B368500014C92 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = incwavemountainsviewExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Incuna.incwavemountainsviewExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "incwavemountainsviewExampleTests/incwavemountainsviewExampleTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/incwavemountainsviewExample.app/incwavemountainsviewExample";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -340,6 +451,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		0A31473D1E4B368500014C92 /* Build configuration list for PBXNativeTarget "incwavemountainsviewExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0A31473E1E4B368500014C92 /* Debug */,
+				0A31473F1E4B368500014C92 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

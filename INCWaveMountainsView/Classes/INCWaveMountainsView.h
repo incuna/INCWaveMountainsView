@@ -27,7 +27,7 @@
  */
 -(void)resetWaves;
 /*!
- * @discussion This draws the percent for idPoint. The percent goes between 0 and 1. Negative values and values bigger than 1 are ignored.
+ * @discussion This draws the percent for idPoint. The percent goes between 0 and 1. Negative values and values bigger than 1 are ignored. If percent is 1, the view will be reset automatically to 0 after showing the animation of reaching 1.
  * @param percent The value percent to update. 
  * @param idPoint the id for the point to update. In terms of keep a tracking of which mountain was updated we need an id.
  */
