@@ -11,15 +11,8 @@
 
 @interface INCWaveMountainsView (Testable)
 
-//Left mountain
 @property(nonatomic,strong)INCWaveMountainLayer *leftMountain;
-
-//Central mountain
 @property(nonatomic,strong)INCWaveMountainLayer *centerMountain;
-
-//Right mountain
 @property(nonatomic,strong)INCWaveMountainLayer *rightMountain;
-
-
 
 @end
