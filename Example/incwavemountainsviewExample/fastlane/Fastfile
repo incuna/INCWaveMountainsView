@@ -36,7 +36,7 @@ platform :ios do
 
   desc "Test app the app with travis"
   lane :run_test_travis do
-    DEVICES = ENV["DEVICE"] || "iPhone 6s"
+    DEVICES = ENV.fetch("DEVICE", "iPhone 6s")
     scan(devices: [DEVICES], clean: true)
   end
 end
