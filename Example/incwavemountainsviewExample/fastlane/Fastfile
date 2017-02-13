@@ -25,8 +25,6 @@ default_platform :ios
 platform :ios do
   FORCE_DEVICES = false
   before_all do |lane, options|
-    # cocoapods We need to fix the problem with repos
-
     if options.key?(:force_devices)
         if options[:force_devices] == true || options[:force_devices] == false
             FORCE_DEVICES = options[:force_devices]
