@@ -45,7 +45,7 @@ class INCWaveMountainsViewTest: XCTestCase {
             return
         }
         
-        XCTAssert(true,"No founded mountain")
+        XCTFail("No founded mountain")
     }
     
     private var expectationTestPointIsReset:XCTestExpectation?
@@ -74,7 +74,7 @@ class INCWaveMountainsViewTest: XCTestCase {
         }
         
         guard let mountainLayerUnw = mountainLayer else {
-            XCTAssert(true,"No founded mountain")
+            XCTFail("No founded mountain")
             return
         }
         
@@ -84,19 +84,21 @@ class INCWaveMountainsViewTest: XCTestCase {
         mountainView.drawPercent(1, forIdPoint: 1)
 
         expectationTestPointIsReset = self.expectation(description: "Test point isReset")
+
         self.waitForExpectations(timeout: 5) { (error:Error?) in
-            guard error != nil else{
-                XCTAssert(true,"The mountain was not reset: Error: \(error!)")
+            
+            guard let errorUwp = error else{
                 return
             }
-            XCTAssert(true,"The mountain was not reset: Time Out")
+
+            XCTFail("The mountain was not reseted: Error: \(errorUwp)")
         }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
         guard let keyPathUwp = keyPath else {
-            XCTAssert(true,"The keys path is nil")
+            XCTFail("The keys path is nil")
             return
         }
         

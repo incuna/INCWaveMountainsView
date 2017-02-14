@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites name='incwavemountainsviewExampleTests.xctest' tests='3' failures='0'>
+  <testsuite name='incwavemountainsviewExampleTests.INCWaveMountainsViewTest' tests='3' failures='0'>
+    <testcase classname='incwavemountainsviewExampleTests.INCWaveMountainsViewTest' name='testExample' time='0.000'/>
+    <testcase classname='incwavemountainsviewExampleTests.INCWaveMountainsViewTest' name='testPointIsReseted' time='0.222'/>
+    <testcase classname='incwavemountainsviewExampleTests.INCWaveMountainsViewTest' name='testPointPercent' time='0.001'/>
+  </testsuite>
+</testsuites>
