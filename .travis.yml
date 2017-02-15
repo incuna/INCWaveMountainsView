@@ -1,5 +1,6 @@
 language: objective-c
 osx_image: xcode8.2
+cache: cocoapods
 xcode_project: ./Example/incwavemountainsviewExample/incwavemountainsviewExample.xcodeproj
 xcode_scheme: incwavemountainsviewExample
 xcode_sdk: iphonesimulator
@@ -14,6 +15,7 @@ install:
       - bundle update
 podfile: Podfile
 script:
+   - bundle exec pod install
    - cd Example/incwavemountainsviewExample
    - travis_wait bundle exec fastlane run_test_travis;
    - cd -
