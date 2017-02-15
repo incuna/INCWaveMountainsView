@@ -18,6 +18,6 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/incuna/incuna-incwavemountainsview-ios.git", :tag => "0.0.1" }
 
-  s.source_files  = "Classes", "Pod/Classes/**/*.{h,m}"
+  s.source_files  = "Pod/Classes/*.{h,m}"
 
 end
