@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "8.0"
 
-  s.source       = { :git => "https://github.com/incuna/incuna-incwavemountainsview-ios", :tag => "0.0.1" }
+  s.source       = { :git => "https://github.com/incuna/incuna-incwavemountainsview-ios.git", :tag => "0.0.1" }
 
   s.source_files  = "Classes", "Pod/Classes/**/*.{h,m}"
 
