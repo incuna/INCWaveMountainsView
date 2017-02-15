@@ -13,9 +13,9 @@
 		0A3138E51E4A35F600262E68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A3138E31E4A35F600262E68 /* Main.storyboard */; };
 		0A3138E71E4A35F600262E68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A3138E61E4A35F600262E68 /* Assets.xcassets */; };
 		0A3138EA1E4A35F600262E68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A3138E81E4A35F600262E68 /* LaunchScreen.storyboard */; };
-		0A3138FC1E4A433600262E68 /* INCWaveMountainLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3138F91E4A433600262E68 /* INCWaveMountainLayer.m */; };
-		0A3138FD1E4A433600262E68 /* INCWaveMountainsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3138FB1E4A433600262E68 /* INCWaveMountainsView.m */; };
 		0A3147421E4B36C200014C92 /* INCWaveMountainsViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3147411E4B36C200014C92 /* INCWaveMountainsViewTest.swift */; };
+		0A5583E01E5473F2003A850C /* INCWaveMountainLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5583DD1E5473F2003A850C /* INCWaveMountainLayer.m */; };
+		0A5583E11E5473F2003A850C /* INCWaveMountainsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5583DF1E5473F2003A850C /* INCWaveMountainsView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,15 +39,15 @@
 		0A3138E61E4A35F600262E68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A3138E91E4A35F600262E68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A3138EB1E4A35F600262E68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0A3138F81E4A433600262E68 /* INCWaveMountainLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INCWaveMountainLayer.h; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainLayer.h; sourceTree = "<group>"; };
-		0A3138F91E4A433600262E68 /* INCWaveMountainLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INCWaveMountainLayer.m; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainLayer.m; sourceTree = "<group>"; };
-		0A3138FA1E4A433600262E68 /* INCWaveMountainsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INCWaveMountainsView.h; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainsView.h; sourceTree = "<group>"; };
-		0A3138FB1E4A433600262E68 /* INCWaveMountainsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INCWaveMountainsView.m; path = ../../../INCWaveMountainsView/Classes/INCWaveMountainsView.m; sourceTree = "<group>"; };
 		0A31472E1E4B351500014C92 /* INCWaveMountainsView+Testable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "INCWaveMountainsView+Testable.h"; sourceTree = "<group>"; };
 		0A3147361E4B368500014C92 /* incwavemountainsviewExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = incwavemountainsviewExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A31473A1E4B368500014C92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A3147401E4B36C200014C92 /* incwavemountainsviewExampleTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "incwavemountainsviewExampleTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		0A3147411E4B36C200014C92 /* INCWaveMountainsViewTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = INCWaveMountainsViewTest.swift; sourceTree = "<group>"; };
+		0A5583DC1E5473F2003A850C /* INCWaveMountainLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INCWaveMountainLayer.h; path = ../../../Pod/Classes/INCWaveMountainLayer.h; sourceTree = "<group>"; };
+		0A5583DD1E5473F2003A850C /* INCWaveMountainLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INCWaveMountainLayer.m; path = ../../../Pod/Classes/INCWaveMountainLayer.m; sourceTree = "<group>"; };
+		0A5583DE1E5473F2003A850C /* INCWaveMountainsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INCWaveMountainsView.h; path = ../../../Pod/Classes/INCWaveMountainsView.h; sourceTree = "<group>"; };
+		0A5583DF1E5473F2003A850C /* INCWaveMountainsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INCWaveMountainsView.m; path = ../../../Pod/Classes/INCWaveMountainsView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,10 +115,10 @@
 		0A3138F11E4A364E00262E68 /* INCWaveMountains */ = {
 			isa = PBXGroup;
 			children = (
-				0A3138F81E4A433600262E68 /* INCWaveMountainLayer.h */,
-				0A3138F91E4A433600262E68 /* INCWaveMountainLayer.m */,
-				0A3138FA1E4A433600262E68 /* INCWaveMountainsView.h */,
-				0A3138FB1E4A433600262E68 /* INCWaveMountainsView.m */,
+				0A5583DC1E5473F2003A850C /* INCWaveMountainLayer.h */,
+				0A5583DD1E5473F2003A850C /* INCWaveMountainLayer.m */,
+				0A5583DE1E5473F2003A850C /* INCWaveMountainsView.h */,
+				0A5583DF1E5473F2003A850C /* INCWaveMountainsView.m */,
 			);
 			name = INCWaveMountains;
 			sourceTree = "<group>";
@@ -245,9 +245,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A3138E21E4A35F600262E68 /* ViewController.m in Sources */,
-				0A3138FD1E4A433600262E68 /* INCWaveMountainsView.m in Sources */,
+				0A5583E11E5473F2003A850C /* INCWaveMountainsView.m in Sources */,
 				0A3138DF1E4A35F600262E68 /* AppDelegate.m in Sources */,
-				0A3138FC1E4A433600262E68 /* INCWaveMountainLayer.m in Sources */,
+				0A5583E01E5473F2003A850C /* INCWaveMountainLayer.m in Sources */,
 				0A3138DC1E4A35F600262E68 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -459,6 +459,7 @@
 				0A31473F1E4B368500014C92 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
