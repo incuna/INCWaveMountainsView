@@ -12,7 +12,7 @@ env:
     - DEVICE="iPhone 6s"
     - DEVICE="iPhone 7"
 install: 
-      - bundle update
+      - bundle install
 podfile: ./Example/incwavemountainsviewExample/Podfile
 script:
    - bundle exec pod install --project-directory=./Example/incwavemountainsviewExample/
