@@ -15,6 +15,7 @@ install:
       - bundle install
 podfile: ./Example/incwavemountainsviewExample/Podfile
 script:
+   - travis_debug
    - bundle exec pod install --project-directory=./Example/incwavemountainsviewExample/
    - cd Example/incwavemountainsviewExample
    - travis_wait bundle exec fastlane run_test_travis;
