@@ -1,19 +1,21 @@
 language: objective-c
 osx_image: xcode8.2
-xcode_project: ./Example/incwavemountainsviewExample/incwavemountainsviewExample.xcodeproj
+cache: cocoapods
+xcode_workspace: ./Example/incwavemountainsviewExample/incwavemountainsviewExample.xcworkspace
 xcode_scheme: incwavemountainsviewExample
 xcode_sdk: iphonesimulator
 env:
   global:
-    - SCAN_PROJECT='incwavemountainsviewExample.xcodeproj'
+    - SCAN_WORKSPACE='incwavemountainsviewExample.xcworkspace'
     - SCAN_SCHEME='incwavemountainsviewExample'
   matrix:
     - DEVICE="iPhone 6s"
     - DEVICE="iPhone 7"
 install: 
-      - bundle update
-podfile: Podfile
+      - bundle install
+podfile: ./Example/incwavemountainsviewExample/Podfile
 script:
+   - bundle exec pod install --project-directory=./Example/incwavemountainsviewExample/
    - cd Example/incwavemountainsviewExample
    - travis_wait bundle exec fastlane run_test_travis;
    - cd -
