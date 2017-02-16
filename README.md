@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/incuna/incuna-incwavemountainsview-ios.svg?branch=master)](https://travis-ci.org/incuna/incuna-incwavemountainsview-ios)
+
 # INCWaveMountainsView
 This view creates an animation set up by a percent. 
 
