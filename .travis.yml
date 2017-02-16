@@ -13,9 +13,9 @@ env:
     - DEVICE="iPhone 7"
 install: 
       - bundle update
-podfile: Podfile
+podfile: ./Example/incwavemountainsviewExample/Podfile
 script:
-   - bundle exec pod install
+   - bundle exec pod install --project-directory=./Example/incwavemountainsviewExample/
    - cd Example/incwavemountainsviewExample
    - travis_wait bundle exec fastlane run_test_travis;
    - cd -
