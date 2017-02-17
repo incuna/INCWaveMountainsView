@@ -9,8 +9,14 @@ It's a complement for a HUD for showing more information.
 
 ![exampleanimation](https://cloud.githubusercontent.com/assets/5259830/22646767/f02e1aaa-ec65-11e6-94a6-54dd7772024e.gif)
 
+#Installation 
+
+We recomment to use cocoapod, just add the pod in your podfile
+
+```pod "INCWaveMountainView"```
+
 #How to use it
 
 It's an UIView so just create an instance and add it to your view hierarchy. 
 
-Take a look the header file for more details
+Take a look the header file for more info.
